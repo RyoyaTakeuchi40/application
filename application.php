@@ -1,4 +1,3 @@
-<!-- gitを使い始めました -->
 <?php
 require("dbconnect.php");
 
