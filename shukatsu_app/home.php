@@ -1,8 +1,4 @@
 <?php
-function H($value){
-    return htmlspecialchars($value, ENT_QUOTES);
-}
-
 require("db.php");
 
 $fo = ['display' => ''];
@@ -98,7 +94,9 @@ while ($row = mysqli_fetch_assoc($result)) {
             <div class="content">
                 <?php foreach ($companies as $company) : ?>
                     <tr class="company_<?php echo H($company['result']) ?>">
-                        <td><?php echo H($company['name']); ?></td>
+                        <!-- tableの1つの箱がまるごとリンクになるようにするにはどうしたらいいですか -->
+                        <!-- JSのonclickだとphpがうまく動作しないので嫌です -->
+                        <td><a href="detail.php?id=<?php echo H($company['id']); ?>"><?php echo H($company['name']); ?></td></a>
                         <td><?php echo H($company['favorite']); ?></td>
                         <td class="es"><?php echo H($company['es']); ?></td>
                         <td class="es"><?php echo H($company['es_check']); ?></td>
@@ -115,5 +113,6 @@ while ($row = mysqli_fetch_assoc($result)) {
             </div>
         </table>
     </div>
+
 </body>
 </html>
