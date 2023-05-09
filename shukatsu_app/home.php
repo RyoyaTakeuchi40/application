@@ -64,7 +64,12 @@ while ($row = mysqli_fetch_assoc($result)) {
 </head>
 <body>
     <div class="comtainer">
-        <div class="buttons">
+        <div class="addbutton">
+            <form action="add.php" method="post">
+                <button type="submit" name="add">追加する</button>
+            </form>
+        </div>
+        <div class="displaybuttons">
             <form action="" method="post">
                 <button type="submit" name="display" value="all">すべてを表示</button>
             </form>      
