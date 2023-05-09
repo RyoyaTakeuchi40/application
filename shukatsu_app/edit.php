@@ -42,7 +42,7 @@ $stmt -> fetch();
         </div>
         <h3>ES</h3>
         <div class="fromdb">
-            <input type="date" name="es" value="<?php echo $es; ?>">
+            <input type="date" name="es" value="<?php //echo $es; ?>">
             <textarea name="memo_es" cols="30" rows="5"><?php echo H($memo_es); ?></textarea>
         </div>
         <h3>テスト</h3>
