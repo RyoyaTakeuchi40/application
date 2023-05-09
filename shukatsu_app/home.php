@@ -104,10 +104,30 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <!-- tableの1つの箱がまるごとリンクになるようにするにはどうしたらいいですか -->
                         <!-- JSのonclickだとphpがうまく動作しないので嫌です -->
                         <td><a href="detail.php?id=<?php echo H($company['id']); ?>"><?php echo H($company['name']); ?></td></a>
-                        <td><?php echo H($company['favorite']); ?></td>
+                        <td>
+                            <form action="favorite.php" method="post">
+                                <input type="hidden" name="id" value="<?php echo H($company['id']); ?>">
+                                <input type="hidden" name="favorite" value="0">
+                                <input type="checkbox" name="favorite" value="1" onchange="this.form.submit();" <?php if($company['favorite'] == 1){ echo "checked";} ?>>
+                            </form>
+                        </td>
                         <td class="es"><?php echo D($company['es']); ?></td>
                         <td class="es"><?php echo H($company['es_check']); ?></td>
-                        <td class="test"><?php echo H($company['test_type']); ?></td>
+                        <td class="test">
+                        <?php
+                        if($company['test_type'] == 1){
+                            echo "SPI3";
+                        }elseif($company['test_type'] == 2){
+                            echo "CAB";
+                        }elseif($company['test_type'] == 3){
+                            echo "GAB";
+                        }elseif($company['test_type'] == 4){
+                            echo "技術テスト";
+                        }else{
+                            echo "なし";
+                        }
+                        ?>
+                        </td>
                         <td class="int1"><?php echo D($company['1_interview']); ?></td>
                         <td class="int1"><?php echo H($company['1_check']); ?></td>
                         <td class="int2"><?php echo D($company['2_interview']); ?></td>
