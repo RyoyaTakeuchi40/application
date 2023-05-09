@@ -24,6 +24,9 @@ $stmt -> fetch();
     </style>
 </head>
 <body>
+    <form action="home.php">
+        <button type="submit">戻る</button>
+    </form>
     <h3>会社名</h3>
     <textarea name="name" id="name" rows="1"><?php echo H($name); ?></textarea>
     <h3>URL</h3>
@@ -37,6 +40,8 @@ $stmt -> fetch();
         echo "CAB";
     }elseif($test_type == 3){
         echo "GAB";
+    }elseif($test_type == 4){
+        echo "技術テスト";
     }else{
         echo "なし";
     }

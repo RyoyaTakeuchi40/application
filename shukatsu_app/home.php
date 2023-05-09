@@ -64,18 +64,20 @@ while ($row = mysqli_fetch_assoc($result)) {
 </head>
 <body>
     <div class="comtainer">
-        <form action="" method="post">
-            <button type="submit" name="display" value="all">すべてを表示</button>
-        </form>      
-        <form action="" method="post">
-            <button type="submit" name="display" value="favorite">気になるだけを表示</button>
-        </form>
-        <form action="" method="post">
-            <button type="submit" name="display" value="mid">選考中だけを表示</button>
-        </form>
-        <form action="" method="post">
-            <button type="submit" name="display" value="offered">内定を表示</button>
-        </form>
+        <div class="buttons">
+            <form action="" method="post">
+                <button type="submit" name="display" value="all">すべてを表示</button>
+            </form>      
+            <form action="" method="post">
+                <button type="submit" name="display" value="favorite">気になるだけを表示</button>
+            </form>
+            <form action="" method="post">
+                <button type="submit" name="display" value="mid">選考中だけを表示</button>
+            </form>
+            <form action="" method="post">
+                <button type="submit" name="display" value="offered">内定を表示</button>
+            </form>
+        </div>
         <table>
             <tr>
                 <th>会社名</th>
@@ -98,14 +100,14 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <!-- JSのonclickだとphpがうまく動作しないので嫌です -->
                         <td><a href="detail.php?id=<?php echo H($company['id']); ?>"><?php echo H($company['name']); ?></td></a>
                         <td><?php echo H($company['favorite']); ?></td>
-                        <td class="es"><?php echo H($company['es']); ?></td>
+                        <td class="es"><?php echo D($company['es']); ?></td>
                         <td class="es"><?php echo H($company['es_check']); ?></td>
                         <td class="test"><?php echo H($company['test_type']); ?></td>
-                        <td class="int1"><?php echo H($company['1_interview']); ?></td>
+                        <td class="int1"><?php echo D($company['1_interview']); ?></td>
                         <td class="int1"><?php echo H($company['1_check']); ?></td>
-                        <td class="int2"><?php echo H($company['2_interview']); ?></td>
+                        <td class="int2"><?php echo D($company['2_interview']); ?></td>
                         <td class="int2"><?php echo H($company['2_check']); ?></td>
-                        <td class="int3"><?php echo H($company['3_interview']); ?></td>
+                        <td class="int3"><?php echo D($company['3_interview']); ?></td>
                         <td class="int3"><?php echo H($company['3_check']); ?></td>
                         <td><?php echo H($company['result']); ?></td>
                     </tr>
