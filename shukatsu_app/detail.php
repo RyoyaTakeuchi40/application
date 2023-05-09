@@ -17,38 +17,63 @@ $stmt -> fetch();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>詳細画面</title>
     <style>
-        textarea {
-            resize: none;
-            width: 100%;
+        .fromdb {
+            margin: 0 12px;
         }
     </style>
 </head>
 <body>
-    <form action="home.php">
+    <form action="home.php" method="post">
         <button type="submit">戻る</button>
     </form>
+    <form action="edit.php" method="post">
+        <button type="submit" name="id" value="<?php echo $id; ?>">編集する</button>
+    </form>
     <h3>会社名</h3>
-    <textarea name="name" id="name" rows="1"><?php echo H($name); ?></textarea>
+    <div class="fromdb">
+        <p><?php echo H($name); ?></p>
+    </div>
     <h3>URL</h3>
-    <textarea name="url" id="url" rows="1"><?php echo H($url); ?></textarea>
+    <div class="fromdb">
+        <p><a href="<?php echo H($url); ?>"><?php echo H($url); ?></a></p>
+    </div>
     <h3>ES</h3>
+    <div class="fromdb">
+        <?php echo D($es), $check_es; ?>
+        <p><?php echo H($memo_es); ?></p>
+    </div>
     <h3>テスト</h3>
-    <?php
-    if($test_type == 1){
-        echo "SPI3";
-    }elseif($test_type == 2){
-        echo "CAB";
-    }elseif($test_type == 3){
-        echo "GAB";
-    }elseif($test_type == 4){
-        echo "技術テスト";
-    }else{
-        echo "なし";
-    }
-    ?>
+    <div class="fromdb">
+        <?php
+        echo D($test);
+        if($test_type == 1){
+            echo "SPI3";
+        }elseif($test_type == 2){
+            echo "CAB";
+        }elseif($test_type == 3){
+            echo "GAB";
+        }elseif($test_type == 4){
+            echo "技術テスト";
+        }else{
+            echo "なし";
+        }
+        ?>
+    </div>
     <h3>1次面接</h3>
+    <div class="fromdb">
+        <p><?php echo D($int_1), $check_1; ?></p>
+        <p><?php echo H($memo_1); ?></p>
+    </div>
     <h3>2次面接</h3>
+    <div class="fromdb">
+        <p><?php echo D($int_2), $check_2; ?></p>
+        <p><?php echo H($memo_2); ?></p>
+    </div>
     <h3>3次面接</h3>
+    <div class="fromdb">
+        <p><?php echo D($int_3), $check_3; ?></p>
+        <p><?php echo H($memo_3); ?></p>
+    </div>
 </body>
 </html>
 
