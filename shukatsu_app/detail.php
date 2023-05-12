@@ -5,7 +5,7 @@ $gotid = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 $stmt = $db -> prepare("SELECT * FROM `shukatsu_app` WHERE id=?");
 $stmt -> bind_param("i", $gotid);
 $stmt -> execute();
-$stmt -> bind_result($id, $name, $favorite, $es, $check_es, $memo_es, $test, $test_type, $int_1, $check_1, $memo_1, $int_2, $check_2, $memo_2, $int_3, $check_3, $memo_3, $result, $url);
+$stmt -> bind_result($id, $name, $favorite, $es, $check_es, $memo_es, $test, $test_type, $check_test, $int_1, $check_1, $memo_1, $int_2, $check_2, $memo_2, $int_3, $check_3, $memo_3, $result, $url);
 $stmt -> fetch();
 ?>
 
@@ -39,13 +39,13 @@ $stmt -> fetch();
     </div>
     <h3>ES</h3>
     <div class="fromdb">
-        <?php echo D($es), $check_es; ?>
+        <p><?php echo D($es), $check_es; ?></p>
         <p><?php echo H($memo_es); ?></p>
     </div>
     <h3>テスト</h3>
     <div class="fromdb">
-        <?php
-        echo D($test);
+        <p><?php echo D($test), $check_test; ?></p>
+        <p><?php
         if($test_type == 1){
             echo "SPI3";
         }elseif($test_type == 2){
@@ -57,7 +57,7 @@ $stmt -> fetch();
         }else{
             echo "なし";
         }
-        ?>
+        ?></p>
     </div>
     <h3>1次面接</h3>
     <div class="fromdb">

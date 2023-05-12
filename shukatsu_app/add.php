@@ -5,7 +5,7 @@ $postid = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 $stmt = $db -> prepare("SELECT * FROM `shukatsu_app` WHERE id=?");
 $stmt -> bind_param("i", $postid);
 $stmt -> execute();
-$stmt -> bind_result($id, $name, $favorite, $es, $check_es, $memo_es, $test, $test_type, $int_1, $check_1, $memo_1, $int_2, $check_2, $memo_2, $int_3, $check_3, $memo_3, $result, $url);
+$stmt -> bind_result($id, $name, $favorite, $es, $check_es, $memo_es, $test, $test_type, $check_test, $int_1, $check_1, $memo_1, $int_2, $check_2, $memo_2, $int_3, $check_3, $memo_3, $result, $url);
 $stmt -> fetch();
 ?>
 
