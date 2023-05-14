@@ -42,11 +42,25 @@ $stmt -> fetch();
         </div>
         <h3>ES</h3>
         <div class="fromdb">
-            <input type="date" name="es" value="<?php //echo $es; ?>">
+            <select name="check_es" id="check_es">
+                <option value="0" <?php if($check_es == 0){echo "selected";} ?>></option>
+                <option value="1" <?php if($check_es == 1){echo "selected";} ?>>選考中</option>
+                <option value="2" <?php if($check_es == 2){echo "selected";} ?>>通過</option>
+                <option value="3" <?php if($check_es == 3){echo "selected";} ?>>お祈り</option>
+                <option value="4" <?php if($check_es == 4){echo "selected";} ?>>辞退</option>
+            </select>
+            <input type="date" name="es" value="<?php echo $es; ?>">
             <textarea name="memo_es" cols="30" rows="5"><?php echo H($memo_es); ?></textarea>
         </div>
         <h3>テスト</h3>
         <div class="fromdb">
+            <select name="check_test" id="check_test">
+                <option value="0" <?php if($check_test == 0){echo "selected";} ?>></option>
+                <option value="1" <?php if($check_test == 1){echo "selected";} ?>>選考中</option>
+                <option value="2" <?php if($check_test == 2){echo "selected";} ?>>通過</option>
+                <option value="3" <?php if($check_test == 3){echo "selected";} ?>>お祈り</option>
+                <option value="4" <?php if($check_test == 4){echo "selected";} ?>>辞退</option>
+            </select>
             <input type="date" name="test" value="<?php echo $test; ?>">
             <select name="test_type" id="test_type">
                 <option value="0" <?php if($test_type == 0){echo "selected";} ?>>なし</option>
@@ -58,21 +72,50 @@ $stmt -> fetch();
         </div>
         <h3>1次面接</h3>
         <div class="fromdb">
+            <select name="check_1" id="check_1">
+                <option value="0" <?php if($check_1 == 0){echo "selected";} ?>></option>
+                <option value="1" <?php if($check_1 == 1){echo "selected";} ?>>選考中</option>
+                <option value="2" <?php if($check_1 == 2){echo "selected";} ?>>通過</option>
+                <option value="3" <?php if($check_1 == 3){echo "selected";} ?>>お祈り</option>
+                <option value="4" <?php if($check_1 == 4){echo "selected";} ?>>辞退</option>
+            </select>
             <input type="date" name="int_1" value="<?php echo $int_1; ?>">
             <textarea name="memo_1" cols="30" rows="5"><?php echo H($memo_1); ?></textarea>
         </div>
         <h3>2次面接</h3>
         <div class="fromdb">
+            <select name="check_2" id="check_2">
+                <option value="0" <?php if($check_2 == 0){echo "selected";} ?>></option>
+                <option value="1" <?php if($check_2 == 1){echo "selected";} ?>>選考中</option>
+                <option value="2" <?php if($check_2 == 2){echo "selected";} ?>>通過</option>
+                <option value="3" <?php if($check_2 == 3){echo "selected";} ?>>お祈り</option>
+                <option value="4" <?php if($check_2 == 4){echo "selected";} ?>>辞退</option>
+            </select>
             <input type="date" name="int_2" value="<?php echo $int_2; ?>">
             <textarea name="memo_2" cols="30" rows="5"><?php echo H($memo_2); ?></textarea>
         </div>
         <h3>3次面接</h3>
         <div class="fromdb">
+            <select name="check_3" id="check_3">
+                <option value="0" <?php if($check_3 == 0){echo "selected";} ?>></option>
+                <option value="1" <?php if($check_3 == 1){echo "selected";} ?>>選考中</option>
+                <option value="2" <?php if($check_3 == 2){echo "selected";} ?>>通過</option>
+                <option value="3" <?php if($check_3 == 3){echo "selected";} ?>>お祈り</option>
+                <option value="4" <?php if($check_3 == 4){echo "selected";} ?>>辞退</option>
+            </select>
             <input type="date" name="int_3" value="<?php echo $int_3; ?>">
             <textarea name="memo_3" cols="30" rows="5"><?php echo H($memo_3); ?></textarea>
+        </div>
+        <h3>結果</h3>
+        <div class="fromdb">
+            <select name="result" id="result">
+                <option value="0" <?php if($result == 0){echo "selected";} ?>>選考中</option>
+                <option value="1" <?php if($result == 1){echo "selected";} ?>>内定</option>
+                <option value="2" <?php if($result == 2){echo "selected";} ?>>お祈り</option>
+                <option value="3" <?php if($result == 3){echo "selected";} ?>>辞退</option>
+            </select>
         </div>
         <button typy="submit" name="id" value="<?php echo H($id); ?>">変更する</button>
     </form>
 </body>
 </html>
-

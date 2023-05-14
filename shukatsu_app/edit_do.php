@@ -44,9 +44,17 @@ if(isset($_POST['id'])) {
     $memo_1 = filter_input(INPUT_POST, 'memo_1', FILTER_SANITIZE_STRING);
     $memo_2 = filter_input(INPUT_POST, 'memo_2', FILTER_SANITIZE_STRING);
     $memo_3 = filter_input(INPUT_POST, 'memo_3', FILTER_SANITIZE_STRING);
+    $check_es = filter_input(INPUT_POST, 'check_es', FILTER_SANITIZE_NUMBER_INT);
+    $check_test = filter_input(INPUT_POST, 'check_test', FILTER_SANITIZE_NUMBER_INT);
+    $check_1 = filter_input(INPUT_POST, 'check_1', FILTER_SANITIZE_NUMBER_INT);
+    $check_2 = filter_input(INPUT_POST, 'check_2', FILTER_SANITIZE_NUMBER_INT);
+    $check_3 = filter_input(INPUT_POST, 'check_3', FILTER_SANITIZE_NUMBER_INT);
+    $result = filter_input(INPUT_POST, 'result', FILTER_SANITIZE_NUMBER_INT);
 
-    $stmt = $db -> prepare("UPDATE `shukatsu_app` SET `name`=?,`url`=?,`es`=?,`es_memo`=?,`test`=?,`test_type`=?,`1_interview`=?,`2_interview`=?,`3_interview`=?,`1_memo`=?,`2_memo`=?,`3_memo`=? WHERE id=?");
-    $stmt -> bind_param('sssssissssssi', $name, $url, $es, $memo_es, $test, $test_type, $int_1, $int_2, $int_3, $memo_1, $memo_2, $memo_3, $id);
+
+    $stmt = $db -> prepare("UPDATE `shukatsu_app` SET `name`=?,`url`=?,`es`=?,`es_memo`=?,`test`=?,`test_type`=?,`1_interview`=?,`2_interview`=?,`3_interview`=?,`1_memo`=?,`2_memo`=?,`3_memo`=?, `es_check`=?, `test_check`=?, `1_check`=?, `2_check`=?, `3_check`=?, `result`=? WHERE id=?");
+    $stmt -> bind_param('sssssissssssiiiiiii', $name, $url, $es, $memo_es, $test, $test_type, $int_1, $int_2, $int_3, $memo_1, $memo_2, $memo_3, 
+    $check_es, $check_test, $check_1, $check_2, $check_3, $result, $id);
     if ($stmt->execute()) {
         header('Location: detail.php?id=' . $id);
         exit();

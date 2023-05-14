@@ -34,7 +34,7 @@ $stmt -> fetch();
     <form action="add_do.php" method="post">
         <h3>会社名</h3>
         <div class="fromdb">
-            <textarea name="name" cols="30" rows="1"></textarea>
+            <textarea name="name" cols="30" rows="1" required></textarea>
         </div>
         <h3>URL</h3>
         <div class="fromdb">

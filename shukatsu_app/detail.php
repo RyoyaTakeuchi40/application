@@ -39,12 +39,42 @@ $stmt -> fetch();
     </div>
     <h3>ES</h3>
     <div class="fromdb">
-        <p><?php echo D($es), $check_es; ?></p>
+        <p>
+            <?php
+            if($check_es == 1){
+                echo "選考中";
+            }elseif($check_es == 2){
+                echo "通過";
+            }elseif($check_es == 3){
+                echo "お祈り";
+            }elseif($check_es == 4){
+                echo "辞退";
+            }else{
+                echo "";
+            }
+            ?>
+        </p>
+        <p><?php echo D($es); ?></p>
         <p><?php echo H($memo_es); ?></p>
     </div>
     <h3>テスト</h3>
     <div class="fromdb">
-        <p><?php echo D($test), $check_test; ?></p>
+        <p>
+            <?php
+            if($check_test == 1){
+                echo "選考中";
+            }elseif($check_test == 2){
+                echo "通過";
+            }elseif($check_test == 3){
+                echo "お祈り";
+            }elseif($check_test == 4){
+                echo "辞退";
+            }else{
+                echo "";
+            }
+            ?>
+        </p>
+        <p><?php echo D($test); ?></p>
         <p><?php
         if($test_type == 1){
             echo "SPI3";
@@ -61,19 +91,79 @@ $stmt -> fetch();
     </div>
     <h3>1次面接</h3>
     <div class="fromdb">
-        <p><?php echo D($int_1), $check_1; ?></p>
+        <p>
+            <?php
+            if($check_1 == 1){
+                echo "選考中";
+            }elseif($check_1 == 2){
+                echo "通過";
+            }elseif($check_1 == 3){
+                echo "お祈り";
+            }elseif($check_1 == 4){
+                echo "辞退";
+            }else{
+                echo "";
+            }
+            ?>
+        </p>
+        <p><?php echo D($int_1); ?></p>
         <p><?php echo H($memo_1); ?></p>
     </div>
     <h3>2次面接</h3>
     <div class="fromdb">
-        <p><?php echo D($int_2), $check_2; ?></p>
+        <p>
+            <?php
+            if($check_2 == 1){
+                echo "選考中";
+            }elseif($check_2 == 2){
+                echo "通過";
+            }elseif($check_2 == 3){
+                echo "お祈り";
+            }elseif($check_2 == 4){
+                echo "辞退";
+            }else{
+                echo "";
+            }
+            ?>
+        </p>
+        <p><?php echo D($int_2); ?></p>
         <p><?php echo H($memo_2); ?></p>
     </div>
     <h3>3次面接</h3>
     <div class="fromdb">
-        <p><?php echo D($int_3), $check_3; ?></p>
+        <p>
+            <?php
+            if($check_3 == 1){
+                echo "選考中";
+            }elseif($check_3 == 2){
+                echo "通過";
+            }elseif($check_3 == 3){
+                echo "お祈り";
+            }elseif($check_3 == 4){
+                echo "辞退";
+            }else{
+                echo "";
+            }
+            ?>
+        </p>
+        <p><?php echo D($int_3); ?></p>
         <p><?php echo H($memo_3); ?></p>
+    </div>
+    <h3>結果</h3>
+    <div class="fromdb">
+        <p>
+            <?php
+            if($result == 1){
+                echo "内定";
+            }elseif($result == 2){
+                echo "お祈り";
+            }elseif($result == 3){
+                echo "辞退";
+            }else{
+                echo "選考中";
+            }
+            ?>
+        </p>
     </div>
 </body>
 </html>
-
