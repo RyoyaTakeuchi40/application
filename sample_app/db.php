@@ -8,4 +8,9 @@ function D($value){
     }
 }
     $db = new mysqli('localhost:8889', 'root', 'root', 'job_application');
+
+    $forcnt = $db->query("SELECT * FROM `sample_app`");
+    $cnt =  $forcnt->field_count;
+    $num = ($cnt -1)/3;
+    $newnum = $num +1;
 ?>

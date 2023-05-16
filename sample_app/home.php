@@ -33,16 +33,20 @@ while ($row = mysqli_fetch_assoc($result)) {
     <table>
         <tr>
             <th>id</th>
-            <th>int_1</th>
-            <th>check_1</th>
-            <th>memo_1</th>
+            <?php for($i=0; $i<$num; $i++): ?>
+                <th>int_<?php echo $i+1; ?></th>
+                <th>check_<?php echo $i+1; ?></th>
+                <th>memo_<?php echo $i+1; ?></th>
+            <?php endfor; ?>
         </tr>
         <?php foreach ($companies as $company) : ?>
             <tr>
                 <td><?php echo H($company['id']); ?></td>
-                <td><?php echo H($company['int_1']); ?></td>
-                <td><?php echo H($company['check_1']); ?></td>
-                <td><?php echo H($company['memo_1']); ?></td>
+                <?php for($i=0; $i<$num; $i++): ?>
+                    <td><?php echo H($company['int_'.($i+1)]); ?></td>
+                    <td><?php echo H($company['check_'.($i+1)]); ?></td>
+                    <td><?php echo H($company['memo_'.($i+1)]); ?></td>
+                <?php endfor; ?>
             </tr>
         <?php endforeach; ?>
     </table>
