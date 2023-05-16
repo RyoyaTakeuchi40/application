@@ -45,7 +45,7 @@ if(isset($_POST['id'])) {
     $memo_2 = filter_input(INPUT_POST, 'memo_2', FILTER_SANITIZE_STRING);
     $memo_3 = filter_input(INPUT_POST, 'memo_3', FILTER_SANITIZE_STRING);
 
-    $stmt = $db -> prepare("INSERT INTO `shukatsu_app` (`name`,`url`,`es`,`es_memo`,`test`,`test_type`,`1_interview`,`2_interview`,`3_interview`,`1_memo`,`2_memo`,`3_memo`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $db -> prepare("INSERT INTO `shukatsu_app` (`name`,`url`,`es`,` memo_es`,`test`,`test_type`,`interview_1`,`interview_2`,`interview_3`,` memo_1`,` memo_2`,` memo_3`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt -> bind_param('sssssissssss', $name, $url, $es, $memo_es, $test, $test_type, $int_1, $int_2, $int_3, $memo_1, $memo_2, $memo_3);
     if ($stmt->execute()) {
         header('Location: home.php');

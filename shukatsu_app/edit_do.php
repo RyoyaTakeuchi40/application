@@ -52,7 +52,7 @@ if(isset($_POST['id'])) {
     $result = filter_input(INPUT_POST, 'result', FILTER_SANITIZE_NUMBER_INT);
 
 
-    $stmt = $db -> prepare("UPDATE `shukatsu_app` SET `name`=?,`url`=?,`es`=?,`es_memo`=?,`test`=?,`test_type`=?,`1_interview`=?,`2_interview`=?,`3_interview`=?,`1_memo`=?,`2_memo`=?,`3_memo`=?, `es_check`=?, `test_check`=?, `1_check`=?, `2_check`=?, `3_check`=?, `result`=? WHERE id=?");
+    $stmt = $db -> prepare("UPDATE `shukatsu_app` SET `name`=?,`url`=?,`es`=?,` memo_es`=?,`test`=?,`test_type`=?,`interview_1`=?,`interview_2`=?,`interview_3`=?,` memo_1`=?,` memo_2`=?,` memo_3`=?, `check_es`=?, `check_test`=?, `check_1`=?, `check_2`=?, `check_3`=?, `result`=? WHERE id=?");
     $stmt -> bind_param('sssssissssssiiiiiii', $name, $url, $es, $memo_es, $test, $test_type, $int_1, $int_2, $int_3, $memo_1, $memo_2, $memo_3, 
     $check_es, $check_test, $check_1, $check_2, $check_3, $result, $id);
     if ($stmt->execute()) {

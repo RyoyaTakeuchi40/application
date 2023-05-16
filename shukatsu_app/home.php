@@ -72,6 +72,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <button type="submit" name="add">追加する</button>
             </form>
         </div>
+        <div class="addcolumn">
+        <form action="column.php" method="post">
+        <button type="submit" name="column">欄を追加</button>
+    </form>
+        </div>
         <div class="displaybuttons">
             <form action="home.php" method="post">
                 <button type="submit" name="display" value="all">すべてを表示</button>
@@ -117,24 +122,24 @@ while ($row = mysqli_fetch_assoc($result)) {
                                 <input type="checkbox" name="favorite" value="1" onchange="this.form.submit();" <?php if($company['favorite'] == 1){ echo "checked";} ?>>
                             </form>
                         </td>
-                        <td class="es_<?php echo H($company['es_check']); ?>"><?php echo D($company['es']); ?></td>
-                        <td class="es_<?php echo H($company['es_check']); ?>">
+                        <td class="es_<?php echo H($company['check_es']); ?>"><?php echo D($company['es']); ?></td>
+                        <td class="es_<?php echo H($company['check_es']); ?>">
                             <?php
-                            if($company['es_check'] == 1){
+                            if($company['check_es'] == 1){
                                 echo "選考中";
-                            }elseif($company['es_check'] == 2){
+                            }elseif($company['check_es'] == 2){
                                 echo "通過";
-                            }elseif($company['es_check'] == 3){
+                            }elseif($company['check_es'] == 3){
                                 echo "お祈り";
-                            }elseif($company['es_check'] == 4){
+                            }elseif($company['check_es'] == 4){
                                 echo "辞退";
                             }else{
                                 echo "";
                             }
                             ?>
                         </td>
-                        <td class="test_<?php echo H($company['test_check']); ?>"><?php echo D($company['test']); ?></td>
-                        <td class="test_<?php echo H($company['test_check']); ?>">
+                        <td class="test_<?php echo H($company['check_test']); ?>"><?php echo D($company['test']); ?></td>
+                        <td class="test_<?php echo H($company['check_test']); ?>">
                             <?php
                             if($company['test_type'] == 1){
                                 echo "SPI3";
@@ -149,63 +154,63 @@ while ($row = mysqli_fetch_assoc($result)) {
                             }
                             ?>
                         </td>
-                        <td class="test_<?php echo H($company['test_check']); ?>">
+                        <td class="test_<?php echo H($company['check_test']); ?>">
                             <?php
-                            if($company['test_check'] == 1){
+                            if($company['check_test'] == 1){
                                 echo "選考中";
-                            }elseif($company['test_check'] == 2){
+                            }elseif($company['check_test'] == 2){
                                 echo "通過";
-                            }elseif($company['test_check'] == 3){
+                            }elseif($company['check_test'] == 3){
                                 echo "お祈り";
-                            }elseif($company['test_check'] == 4){
+                            }elseif($company['check_test'] == 4){
                                 echo "辞退";
                             }else{
                                 echo "";
                             }
                             ?>
                         </td>
-                        <td class="int1_<?php echo H($company['1_check']); ?>"><?php echo D($company['1_interview']); ?></td>
-                        <td class="int1_<?php echo H($company['1_check']); ?>">
+                        <td class="int1_<?php echo H($company['check_1']); ?>"><?php echo D($company['interview_1']); ?></td>
+                        <td class="int1_<?php echo H($company['check_1']); ?>">
                             <?php
-                            if($company['1_check'] == 1){
+                            if($company['check_1'] == 1){
                                 echo "選考中";
-                            }elseif($company['1_check'] == 2){
+                            }elseif($company['check_1'] == 2){
                                 echo "通過";
-                            }elseif($company['1_check'] == 3){
+                            }elseif($company['check_1'] == 3){
                                 echo "お祈り";
-                            }elseif($company['1_check'] == 4){
+                            }elseif($company['check_1'] == 4){
                                 echo "辞退";
                             }else{
                                 echo "";
                             }
                             ?>
                         </td>
-                        <td class="int2_<?php echo H($company['2_check']); ?>"><?php echo D($company['2_interview']); ?></td>
-                        <td class="int2_<?php echo H($company['2_check']); ?>">
+                        <td class="int2_<?php echo H($company['check_2']); ?>"><?php echo D($company['interview_2']); ?></td>
+                        <td class="int2_<?php echo H($company['check_2']); ?>">
                             <?php
-                            if($company['2_check'] == 1){
+                            if($company['check_2'] == 1){
                                 echo "選考中";
-                            }elseif($company['2_check'] == 2){
+                            }elseif($company['check_2'] == 2){
                                 echo "通過";
-                            }elseif($company['2_check'] == 3){
+                            }elseif($company['check_2'] == 3){
                                 echo "お祈り";
-                            }elseif($company['2_check'] == 4){
+                            }elseif($company['check_2'] == 4){
                                 echo "辞退";
                             }else{
                                 echo "";
                             }
                             ?>
                         </td>
-                        <td class="int3_<?php echo H($company['3_check']); ?>"><?php echo D($company['3_interview']); ?></td>
-                        <td class="int3_<?php echo H($company['3_check']); ?>">
+                        <td class="int3_<?php echo H($company['check_3']); ?>"><?php echo D($company['interview_3']); ?></td>
+                        <td class="int3_<?php echo H($company['check_3']); ?>">
                             <?php
-                            if($company['3_check'] == 1){
+                            if($company['check_3'] == 1){
                                 echo "選考中";
-                            }elseif($company['3_check'] == 2){
+                            }elseif($company['check_3'] == 2){
                                 echo "通過";
-                            }elseif($company['3_check'] == 3){
+                            }elseif($company['check_3'] == 3){
                                 echo "お祈り";
-                            }elseif($company['3_check'] == 4){
+                            }elseif($company['check_3'] == 4){
                                 echo "辞退";
                             }else{
                                 echo "";
