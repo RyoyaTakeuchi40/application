@@ -35,6 +35,9 @@ $url = $row[$num*3+10];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>詳細画面</title>
     <style>
+        p {
+            border: solid 1px;
+        }
         .fromdb {
             margin: 0 12px;
         }
@@ -109,26 +112,28 @@ $url = $row[$num*3+10];
     </div>
     <!-- DBの面接の回数繰り返す -->
     <?php for($i=1; $i<=$num; $i++): ?>
+        <?php if (!empty(${'int_'.$i})): ?>
         <h3><?php echo $i; ?>次面接</h3>
-        <div class="fromdb">
-            <p>
-                <?php
-                if(${'check_'.$i} == 1){
-                    echo "選考中";
-                }elseif(${'check_'.$i} == 2){
-                    echo "通過";
-                }elseif(${'check_'.$i} == 3){
-                    echo "お祈り";
-                }elseif(${'check_'.$i} == 4){
-                    echo "辞退";
-                }else{
-                    echo "";
-                }
-                ?>
-            </p>
-            <p><?php echo D(${'int_'.$i}); ?></p>
-            <p><?php echo H(${'memo_'.$i}); ?></p>
-        </div>
+            <div class="fromdb">
+                <p>
+                    <?php
+                    if(${'check_'.$i} == 1){
+                        echo "選考中";
+                    }elseif(${'check_'.$i} == 2){
+                        echo "通過";
+                    }elseif(${'check_'.$i} == 3){
+                        echo "お祈り";
+                    }elseif(${'check_'.$i} == 4){
+                        echo "辞退";
+                    }else{
+                        echo "";
+                    }
+                    ?>
+                </p>
+                <p><?php echo D(${'int_'.$i}); ?></p>
+                <p><?php echo H(${'memo_'.$i}); ?></p>
+            </div>
+        <?php endif; ?>
     <?php endfor; ?>
     <h3>結果</h3>
     <div class="fromdb">

@@ -73,8 +73,13 @@ while ($row = mysqli_fetch_assoc($result)) {
             </form>
         </div>
         <div class="addcolumn">
-            <form action="column.php" method="post">
-                <button type="submit" name="column">欄を追加</button>
+            <form action="addcolumn.php" method="post">
+                <button type="submit" name="addcolumn">欄を追加</button>
+            </form>
+        </div>
+        <div class="dropcolumn">
+            <form action="dropcolumn.php" method="post">
+                <button type="submit" name="dropcolumn">欄を減少</button>
             </form>
         </div>
         <div class="displaybuttons">
