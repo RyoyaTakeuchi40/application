@@ -1,12 +1,31 @@
 <?php
 require("db.php");
-
-$postid = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+if (!$postid = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING)){
+    $postid = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
+}
 $stmt = $db -> prepare("SELECT * FROM `shukatsu_app` WHERE id=?");
 $stmt -> bind_param("i", $postid);
 $stmt -> execute();
-$stmt -> bind_result($id, $name, $favorite, $es, $check_es, $memo_es, $test, $test_type, $check_test, $int_1, $check_1, $memo_1, $int_2, $check_2, $memo_2, $int_3, $check_3, $memo_3, $result, $url);
-$stmt -> fetch();
+//要素を配列で取得
+$result = $stmt->get_result();
+$row = $result->fetch_array(MYSQLI_NUM);
+//各要素を変数に格納
+$id = $row[0];
+$name = $row[1];
+$favorite = $row[2];
+$es = $row[3];
+$check_es = $row[4];
+$memo_es = $row[5];
+$test = $row[6];
+$test_type = $row[7];
+$check_test = $row[8];
+for ($i=1;$i<=$num;$i++){
+    ${'int_'.$i} = $row[$i*3+6];
+    ${'check_'.$i} = $row[$i*3+7];
+    ${'memo_'.$i} = $row[$i*3+8];
+}
+$result = $row[$num*3+9];
+$url = $row[$num*3+10];
 ?>
 
 <!DOCTYPE html>
@@ -70,42 +89,21 @@ $stmt -> fetch();
                 <option value="4" <?php if($test_type == 4){echo "selected";} ?>>技術テスト</option>
             </select>
         </div>
-        <h3>1次面接</h3>
-        <div class="fromdb">
-            <select name="check_1" id="check_1">
-                <option value="0" <?php if($check_1 == 0){echo "selected";} ?>></option>
-                <option value="1" <?php if($check_1 == 1){echo "selected";} ?>>選考中</option>
-                <option value="2" <?php if($check_1 == 2){echo "selected";} ?>>通過</option>
-                <option value="3" <?php if($check_1 == 3){echo "selected";} ?>>お祈り</option>
-                <option value="4" <?php if($check_1 == 4){echo "selected";} ?>>辞退</option>
-            </select>
-            <input type="date" name="int_1" value="<?php echo $int_1; ?>">
-            <textarea name="memo_1" cols="30" rows="5"><?php echo H($memo_1); ?></textarea>
-        </div>
-        <h3>2次面接</h3>
-        <div class="fromdb">
-            <select name="check_2" id="check_2">
-                <option value="0" <?php if($check_2 == 0){echo "selected";} ?>></option>
-                <option value="1" <?php if($check_2 == 1){echo "selected";} ?>>選考中</option>
-                <option value="2" <?php if($check_2 == 2){echo "selected";} ?>>通過</option>
-                <option value="3" <?php if($check_2 == 3){echo "selected";} ?>>お祈り</option>
-                <option value="4" <?php if($check_2 == 4){echo "selected";} ?>>辞退</option>
-            </select>
-            <input type="date" name="int_2" value="<?php echo $int_2; ?>">
-            <textarea name="memo_2" cols="30" rows="5"><?php echo H($memo_2); ?></textarea>
-        </div>
-        <h3>3次面接</h3>
-        <div class="fromdb">
-            <select name="check_3" id="check_3">
-                <option value="0" <?php if($check_3 == 0){echo "selected";} ?>></option>
-                <option value="1" <?php if($check_3 == 1){echo "selected";} ?>>選考中</option>
-                <option value="2" <?php if($check_3 == 2){echo "selected";} ?>>通過</option>
-                <option value="3" <?php if($check_3 == 3){echo "selected";} ?>>お祈り</option>
-                <option value="4" <?php if($check_3 == 4){echo "selected";} ?>>辞退</option>
-            </select>
-            <input type="date" name="int_3" value="<?php echo $int_3; ?>">
-            <textarea name="memo_3" cols="30" rows="5"><?php echo H($memo_3); ?></textarea>
-        </div>
+        <!-- DBの面接の回数繰り返す -->
+        <?php for($i=1; $i<=$num; $i++): ?>
+            <h3><?php echo $i; ?>次面接</h3>
+            <div class="fromdb">
+                <select name="check_$i" id="check_$i">
+                    <option value="0" <?php if(${'check_'.$i} == 0){echo "selected";} ?>></option>
+                    <option value="1" <?php if(${'check_'.$i} == 1){echo "selected";} ?>>選考中</option>
+                    <option value="2" <?php if(${'check_'.$i} == 2){echo "selected";} ?>>通過</option>
+                    <option value="3" <?php if(${'check_'.$i} == 3){echo "selected";} ?>>お祈り</option>
+                    <option value="4" <?php if(${'check_'.$i} == 4){echo "selected";} ?>>辞退</option>
+                </select>
+                <input type="date" name="int_$i" value="<?php echo ${'int_'.$i}; ?>">
+                <textarea name="memo_$i" cols="30" rows="3"><?php echo H(${'memo_'.$i}); ?></textarea>
+            </div>
+        <?php endfor; ?>
         <h3>結果</h3>
         <div class="fromdb">
             <select name="result" id="result">
@@ -117,5 +115,11 @@ $stmt -> fetch();
         </div>
         <button typy="submit" name="id" value="<?php echo H($id); ?>">変更する</button>
     </form>
+    <div class="addcolumn">
+            <form action="addcolumn.php" method="post">
+                <input type="hidden" name="id" value="<?php echo $id ?>">
+                <button type="submit" name="addcolumn">欄を追加</button>
+            </form>
+        </div>
 </body>
 </html>

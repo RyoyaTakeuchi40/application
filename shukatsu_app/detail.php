@@ -5,10 +5,10 @@ $gotid = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 $stmt = $db -> prepare("SELECT * FROM `shukatsu_app` WHERE id=?");
 $stmt -> bind_param("i", $gotid);
 $stmt -> execute();
+//要素を配列で取得
 $result = $stmt->get_result();
 $row = $result->fetch_array(MYSQLI_NUM);
-
-$columns = [];
+//各要素を変数に格納
 $id = $row[0];
 $name = $row[1];
 $favorite = $row[2];
@@ -112,6 +112,7 @@ $url = $row[$num*3+10];
     </div>
     <!-- DBの面接の回数繰り返す -->
     <?php for($i=1; $i<=$num; $i++): ?>
+        <!-- 内容が入力されている場合のみ表示 -->
         <?php if (!empty(${'int_'.$i})): ?>
         <h3><?php echo $i; ?>次面接</h3>
             <div class="fromdb">
