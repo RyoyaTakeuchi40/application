@@ -100,8 +100,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <th>テスト</th>
                 <th>種類</th>
                 <th>結果</th>
-                <?php for($i=0; $i<$num; $i++): ?>
-                    <th><?php echo $i+1; ?>次面接</th>
+                <?php for($i=1; $i<=$num; $i++): ?>
+                    <th><?php echo $i; ?>次面接</th>
                     <th>結果</th>
                 <?php endfor; ?>
                 <th>最終結果</th>
@@ -167,17 +167,17 @@ while ($row = mysqli_fetch_assoc($result)) {
                             }
                             ?>
                         </td>
-                        <?php for($i=0; $i<$num; $i++): ?>
-                            <td class="int<?php echo ($i+1); ?>_<?php echo H($company['check_'.($i+1)]); ?>"><?php echo D($company['interview_'.($i+1)]); ?></td>
-                            <td class="int<?php echo ($i+1); ?>_<?php echo H($company['check_'.($i+1)]); ?>">
+                        <?php for($i=1; $i<=$num; $i++): ?>
+                            <td class="int<?php echo ($i); ?>_<?php echo H($company['check_'.$i]); ?>"><?php echo D($company['interview_'.($i)]); ?></td>
+                            <td class="int<?php echo ($i); ?>_<?php echo H($company['check_'.$i]); ?>">
                                 <?php
-                                if($company['check_'.($i+1)] == 1){
+                                if($company['check_'.($i)] == 1){
                                     echo "選考中";
-                                }elseif($company['check_'.($i+1)] == 2){
+                                }elseif($company['check_'.($i)] == 2){
                                     echo "通過";
-                                }elseif($company['check_'.($i+1)] == 3){
+                                }elseif($company['check_'.($i)] == 3){
                                     echo "お祈り";
-                                }elseif($company['check_'.($i+1)] == 4){
+                                }elseif($company['check_'.($i)] == 4){
                                     echo "辞退";
                                 }else{
                                     echo "";

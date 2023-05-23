@@ -5,8 +5,26 @@ $gotid = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 $stmt = $db -> prepare("SELECT * FROM `shukatsu_app` WHERE id=?");
 $stmt -> bind_param("i", $gotid);
 $stmt -> execute();
-$stmt -> bind_result($id, $name, $favorite, $es, $check_es, $memo_es, $test, $test_type, $check_test, $int_1, $check_1, $memo_1, $int_2, $check_2, $memo_2, $int_3, $check_3, $memo_3, $result, $url);
-$stmt -> fetch();
+$result = $stmt->get_result();
+$row = $result->fetch_array(MYSQLI_NUM);
+
+$columns = [];
+$id = $row[0];
+$name = $row[1];
+$favorite = $row[2];
+$es = $row[3];
+$check_es = $row[4];
+$memo_es = $row[5];
+$test = $row[6];
+$test_type = $row[7];
+$check_test = $row[8];
+for ($i=1;$i<=$num;$i++){
+    ${'int_'.$i} = $row[$i*3+6];
+    ${'check_'.$i} = $row[$i*3+7];
+    ${'memo_'.$i} = $row[$i*3+8];
+}
+$result = $row[$num*3+9];
+$url = $row[$num*3+10];
 ?>
 
 <!DOCTYPE html>
@@ -89,66 +107,29 @@ $stmt -> fetch();
         }
         ?></p>
     </div>
-    <h3>1次面接</h3>
-    <div class="fromdb">
-        <p>
-            <?php
-            if($check_1 == 1){
-                echo "選考中";
-            }elseif($check_1 == 2){
-                echo "通過";
-            }elseif($check_1 == 3){
-                echo "お祈り";
-            }elseif($check_1 == 4){
-                echo "辞退";
-            }else{
-                echo "";
-            }
-            ?>
-        </p>
-        <p><?php echo D($int_1); ?></p>
-        <p><?php echo H($memo_1); ?></p>
-    </div>
-    <h3>2次面接</h3>
-    <div class="fromdb">
-        <p>
-            <?php
-            if($check_2 == 1){
-                echo "選考中";
-            }elseif($check_2 == 2){
-                echo "通過";
-            }elseif($check_2 == 3){
-                echo "お祈り";
-            }elseif($check_2 == 4){
-                echo "辞退";
-            }else{
-                echo "";
-            }
-            ?>
-        </p>
-        <p><?php echo D($int_2); ?></p>
-        <p><?php echo H($memo_2); ?></p>
-    </div>
-    <h3>3次面接</h3>
-    <div class="fromdb">
-        <p>
-            <?php
-            if($check_3 == 1){
-                echo "選考中";
-            }elseif($check_3 == 2){
-                echo "通過";
-            }elseif($check_3 == 3){
-                echo "お祈り";
-            }elseif($check_3 == 4){
-                echo "辞退";
-            }else{
-                echo "";
-            }
-            ?>
-        </p>
-        <p><?php echo D($int_3); ?></p>
-        <p><?php echo H($memo_3); ?></p>
-    </div>
+    <!-- DBの面接の回数繰り返す -->
+    <?php for($i=1; $i<=$num; $i++): ?>
+        <h3><?php echo $i; ?>次面接</h3>
+        <div class="fromdb">
+            <p>
+                <?php
+                if(${'check_'.$i} == 1){
+                    echo "選考中";
+                }elseif(${'check_'.$i} == 2){
+                    echo "通過";
+                }elseif(${'check_'.$i} == 3){
+                    echo "お祈り";
+                }elseif(${'check_'.$i} == 4){
+                    echo "辞退";
+                }else{
+                    echo "";
+                }
+                ?>
+            </p>
+            <p><?php echo D(${'int_'.$i}); ?></p>
+            <p><?php echo H(${'memo_'.$i}); ?></p>
+        </div>
+    <?php endfor; ?>
     <h3>結果</h3>
     <div class="fromdb">
         <p>
