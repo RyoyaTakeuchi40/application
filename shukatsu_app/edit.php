@@ -93,15 +93,15 @@ $url = $row[$num*3+10];
         <?php for($i=1; $i<=$num; $i++): ?>
             <h3><?php echo $i; ?>次面接</h3>
             <div class="fromdb">
-                <select name="check_$i" id="check_$i">
+                <select name="check_<?php echo $i; ?>" id="check_<?php echo $i; ?>">
                     <option value="0" <?php if(${'check_'.$i} == 0){echo "selected";} ?>></option>
                     <option value="1" <?php if(${'check_'.$i} == 1){echo "selected";} ?>>選考中</option>
                     <option value="2" <?php if(${'check_'.$i} == 2){echo "selected";} ?>>通過</option>
                     <option value="3" <?php if(${'check_'.$i} == 3){echo "selected";} ?>>お祈り</option>
                     <option value="4" <?php if(${'check_'.$i} == 4){echo "selected";} ?>>辞退</option>
                 </select>
-                <input type="date" name="int_$i" value="<?php echo ${'int_'.$i}; ?>">
-                <textarea name="memo_$i" cols="30" rows="3"><?php echo H(${'memo_'.$i}); ?></textarea>
+                <input type="date" name="int_<?php echo $i; ?>" value="<?php echo ${'int_'.$i}; ?>">
+                <textarea name="memo_<?php echo $i; ?>" cols="30" rows="3"><?php echo H(${'memo_'.$i}); ?></textarea>
             </div>
         <?php endfor; ?>
         <h3>結果</h3>
