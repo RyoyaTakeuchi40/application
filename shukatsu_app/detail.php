@@ -23,8 +23,9 @@ for ($i=1;$i<=$num;$i++){
     ${'check_'.$i} = $row[$i*3+7];
     ${'memo_'.$i} = $row[$i*3+8];
 }
-$result = $row[$num*3+9];
-$url = $row[$num*3+10];
+$result = $row[($num*3)+8];
+$url = $row[($num*3)+9];
+$login = $row[($num*3)+10];
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +57,11 @@ $url = $row[$num*3+10];
     </div>
     <h3>URL</h3>
     <div class="fromdb">
-        <p><a href="<?php echo H($url); ?>"><?php echo H($url); ?></a></p>
+        <a href="<?php echo H($url); ?>"><p><?php echo H($url); ?></p></a>
+    </div>
+    <h3>ログインID</h3>
+    <div class="fromdb">
+        <p><?php echo H($login); ?></p>
     </div>
     <h3>ES</h3>
     <div class="fromdb">

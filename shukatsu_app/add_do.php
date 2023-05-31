@@ -1,9 +1,9 @@
 <?php
 require("db.php");
-if(isset($_POST['id'])) {
-    $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+if(isset($_POST['button'])) {
     $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
     $url = filter_input(INPUT_POST, 'url', FILTER_SANITIZE_STRING);
+    $login = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_STRING);
     $cones = filter_input(INPUT_POST, 'es', FILTER_SANITIZE_STRING);
     if($cones == null){
         $es = null;
@@ -45,13 +45,16 @@ if(isset($_POST['id'])) {
     $memo_2 = filter_input(INPUT_POST, 'memo_2', FILTER_SANITIZE_STRING);
     $memo_3 = filter_input(INPUT_POST, 'memo_3', FILTER_SANITIZE_STRING);
 
-    $stmt = $db -> prepare("INSERT INTO `shukatsu_app` (`name`,`url`,`es`,` memo_es`,`test`,`test_type`,`interview_1`,`interview_2`,`interview_3`,` memo_1`,` memo_2`,` memo_3`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt -> bind_param('sssssissssss', $name, $url, $es, $memo_es, $test, $test_type, $int_1, $int_2, $int_3, $memo_1, $memo_2, $memo_3);
+    $stmt = $db -> prepare("INSERT INTO `shukatsu_app` (`name`,`url`,`login`,`es`,`memo_es`,`test`,`test_type`,`interview_1`,`interview_2`,`interview_3`,`memo_1`,`memo_2`,`memo_3`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    if (!$stmt) {
+        echo $db->error;  // エラーメッセージを表示
+    }
+    $stmt -> bind_param('ssssssissssss', $name, $url, $login, $es, $memo_es, $test, $test_type, $int_1, $int_2, $int_3, $memo_1, $memo_2, $memo_3);
     if ($stmt->execute()) {
         header('Location: home.php');
         exit();
     } else {
-        error_log($stmt->error);
+        echo $stmt->error;  // エラーメッセージを表示
     }
 }
 ?>

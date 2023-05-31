@@ -42,10 +42,11 @@ if(isset($_POST['id'])) {
 
     $result = filter_input(INPUT_POST, 'result', FILTER_SANITIZE_NUMBER_INT);
     $url = filter_input(INPUT_POST, 'url', FILTER_SANITIZE_STRING);
+    $login = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_STRING);
 
     //ループ以外の部分をbind
-    $stmt = $db -> prepare("UPDATE `shukatsu_app` SET `name`=?, `url`=?, `es`=?, `memo_es`=?, `test`=?, `test_type`=?, `check_es`=?, `check_test`=?, `result`=? WHERE id=?");
-    $stmt -> bind_param('sssssiiiii', $name, $url, $es, $memo_es, $test, $test_type, $check_es, $check_test, $result, $id);
+    $stmt = $db -> prepare("UPDATE `shukatsu_app` SET `name`=?, `url`=?, `login`=?, `es`=?, `memo_es`=?, `test`=?, `test_type`=?, `check_es`=?, `check_test`=?, `result`=? WHERE id=?");
+    $stmt -> bind_param('ssssssiiiii', $name, $url, $login, $es, $memo_es, $test, $test_type, $check_es, $check_test, $result, $id);
     $stmt->execute();
 
     //ループ部分をbind

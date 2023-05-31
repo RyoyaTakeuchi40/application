@@ -20,4 +20,11 @@ $cnt =  $forcnt->field_count;
 $num = ($cnt -11)/3;
 //足される面接は何回目か
 $newnum = $num +1;
+
+//エラー表示のためのfunction
+function console_log($data){
+    echo '<script>';
+    echo 'console.log('.json_encode($data).')';
+    echo '</script>';
+}
 ?>

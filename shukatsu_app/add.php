@@ -1,14 +1,3 @@
-<?php
-require("db.php");
-
-$postid = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
-$stmt = $db -> prepare("SELECT * FROM `shukatsu_app` WHERE id=?");
-$stmt -> bind_param("i", $postid);
-$stmt -> execute();
-$stmt -> bind_result($id, $name, $favorite, $es, $check_es, $memo_es, $test, $test_type, $check_test, $int_1, $check_1, $memo_1, $int_2, $check_2, $memo_2, $int_3, $check_3, $memo_3, $result, $url);
-$stmt -> fetch();
-?>
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -39,6 +28,10 @@ $stmt -> fetch();
         <h3>URL</h3>
         <div class="fromdb">
             <textarea name="url" cols="30" rows="1"></textarea>
+        </div>
+        <h3>ログインID</h3>
+        <div class="fromdb">
+            <textarea name="login" cols="30" rows="1"></textarea>
         </div>
         <h3>ES</h3>
         <div class="fromdb">
@@ -71,7 +64,7 @@ $stmt -> fetch();
             <input type="date" name="int_3">
             <textarea name="memo_3" cols="30" rows="5"></textarea>
         </div>
-        <button typy="submit" name="id">追加する</button>
+        <button typy="submit" name="button">追加する</button>
     </form>
 </body>
 </html>

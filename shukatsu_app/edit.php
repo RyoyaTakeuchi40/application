@@ -1,5 +1,6 @@
 <?php
 require("db.php");
+
 if (!$postid = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING)){
     $postid = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
 }
@@ -24,8 +25,9 @@ for ($i=1;$i<=$num;$i++){
     ${'check_'.$i} = $row[$i*3+7];
     ${'memo_'.$i} = $row[$i*3+8];
 }
-$result = $row[$num*3+9];
-$url = $row[$num*3+10];
+$result = $row[$num*3+8];
+$url = $row[$num*3+9];
+$login = $row[$num*3+10];
 ?>
 
 <!DOCTYPE html>
@@ -58,6 +60,10 @@ $url = $row[$num*3+10];
         <h3>URL</h3>
         <div class="fromdb">
             <textarea name="url" cols="30" rows="1"><?php echo H($url); ?></textarea>
+        </div>
+        <h3>ログインID</h3>
+        <div class="fromdb">
+            <textarea name="login" cols="30" rows="1"><?php echo H($login); ?></textarea>
         </div>
         <h3>ES</h3>
         <div class="fromdb">
