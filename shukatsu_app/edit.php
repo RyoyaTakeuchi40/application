@@ -20,7 +20,9 @@ $memo_es = $row[5];
 $test = $row[6];
 $test_type = $row[7];
 $check_test = $row[8];
+//DBの面接の回数繰り返す繰り返す
 for ($i=1;$i<=$num;$i++){
+    //変数名を$int_1,$int_2,$int_3...と増やす
     ${'int_'.$i} = $row[$i*3+6];
     ${'check_'.$i} = $row[$i*3+7];
     ${'memo_'.$i} = $row[$i*3+8];
@@ -68,6 +70,7 @@ $login = $row[$num*3+10];
         <h3>ES</h3>
         <div class="fromdb">
             <select name="check_es" id="check_es">
+                <!-- DBの値によってselectedが選択される -->
                 <option value="0" <?php if($check_es == 0){echo "selected";} ?>></option>
                 <option value="1" <?php if($check_es == 1){echo "selected";} ?>>選考中</option>
                 <option value="2" <?php if($check_es == 2){echo "selected";} ?>>通過</option>

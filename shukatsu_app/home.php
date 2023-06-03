@@ -91,8 +91,17 @@ if (!$result) {
                 <form action="addcolumn.php" method="post">
                     <button type="submit" name="addcolumn">欄を追加</button>
                 </form>
-                <form action="dropcolumn.php" method="post">
+                <form action="dropcolumn.php" method="post" onsubmit="return prevent();">
                     <button type="submit" name="dropcolumn">欄を減少</button>
+                    <script>
+                        //DBの面接の回数が1回だった場合に実行しない
+                        function prevent(){
+                            if (<?php echo $num ?> == 1){
+                                alert('これ以上は欄を減らせません')
+                                return false;
+                            }
+                        }
+                    </script>
                 </form>
             </div>
         </div>
