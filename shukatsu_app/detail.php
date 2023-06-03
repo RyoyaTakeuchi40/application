@@ -51,6 +51,23 @@ $login = $row[($num*3)+10];
     <form action="edit.php" method="post">
         <button type="submit" name="id" value="<?php echo $id; ?>">編集する</button>
     </form>
+    <form action="delete.php" method="post" onsubmit="return check();">
+        <button type="submit" name="delete" value="<?php echo $id; ?>">削除する</button>
+    </form>
+    <script>
+        //本当に削除するか確認作業
+        function check(){
+            var comfirm = window.confirm('本当に削除しますか？');
+            if (comfirm){
+                //delete.phpに遷移
+                alert('削除されました。')
+            }else{
+                //戻る
+                return false;
+            }  
+        }
+    </script>
+
     <h3>会社名</h3>
     <div class="fromdb">
         <p><?php echo H($name); ?></p>
