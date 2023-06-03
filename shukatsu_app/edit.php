@@ -27,9 +27,9 @@ for ($i=1;$i<=$num;$i++){
     ${'check_'.$i} = $row[$i*3+7];
     ${'memo_'.$i} = $row[$i*3+8];
 }
-$result = $row[$num*3+8];
-$url = $row[$num*3+9];
-$login = $row[$num*3+10];
+$result = $row[$num*3+9];
+$url = $row[$num*3+10];
+$login = $row[$num*3+11];
 ?>
 
 <!DOCTYPE html>

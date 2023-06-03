@@ -9,26 +9,25 @@ if (!$display['display'] = filter_input(INPUT_GET, 'display', FILTER_SANITIZE_ST
 
 //ボタンから表示内容を選択してデータを取得
 if ($display['display'] == 'favorite'){
-    $result = $db->query("SELECT * FROM `shukatsu_app` ORDER BY `es` ASC WHERE `favorite`=1");
+    $result = $db->query("SELECT * FROM `shukatsu_app` WHERE favorite=1 ORDER BY `es` ASC");
 }elseif ($display['display'] == 'mid'){
-    $result = $db->query("SELECT * FROM `shukatsu_app` ORDER BY `es` ASC WHERE `result`=0");
+    $result = $db->query("SELECT * FROM `shukatsu_app` WHERE result=0 ORDER BY `es` ASC");
 }elseif ($display['display'] == 'offered'){
-    $result = $db->query("SELECT * FROM `shukatsu_app` ORDER BY `es` ASC WHERE `result`=1");
+    $result = $db->query("SELECT * FROM `shukatsu_app` WHERE result=1 ORDER BY `es` ASC");
 }else{
     $result = $db->query("SELECT * FROM `shukatsu_app` ORDER BY `es` ASC");
 }
 
 if (!$result) {
     echo "表示する内容がありません";
+    echo $db->error;
 }else{
     //取得したデータを会社ごとの配列に格納
     $companies = array();
     while ($row = mysqli_fetch_assoc($result)) {
         $companies[] = $row;
+    }
 }
-
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -96,9 +95,19 @@ if (!$result) {
                     <script>
                         //DBの面接の回数が1回だった場合に実行しない
                         function prevent(){
-                            if (<?php echo $num ?> == 1){
+                            if (<?php echo $num ?>== 1){
                                 alert('これ以上は欄を減らせません')
+                                //戻る
                                 return false;
+                            }else if (containInterview){
+                                var comfirm = window.confirm(<?php echo $num; ?> + '次面接に入力されている事項がありますが\n本当に削除しますか？');
+                                if (comfirm){
+                                    //dropcolumn.phpに遷移
+                                    alert('削除されました。')
+                                }else{
+                                    //戻る
+                                    return false;
+                                } 
                             }
                         }
                     </script>
@@ -120,6 +129,9 @@ if (!$result) {
             </thead>
             <tbody>
                 <div class="company">
+                    <script>
+                        var containInterview = false;
+                    </script>
                     <?php if ($result):
                         foreach ($companies as $company): ?>
                             <tr class="company_<?php echo H($company['result']); ?>">
@@ -221,6 +233,11 @@ if (!$result) {
                                 <td colspan="2">ログインID</th>
                                 <td colspan="2"><?php echo H($company['login']); ?></td>
                             </tr>
+                            <script>
+                                if (<?php echo $company['interview_'.($num)]; ?>){
+                                    var containInterview = true;
+                                }
+                            </script>
                     <?php endforeach;
                     endif; ?>
                 </div>
