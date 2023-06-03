@@ -1,12 +1,30 @@
 <?php
 require("db.php");
 
+//display変更中でもカラムの減少alertを出すため
+$foralert = $db->query("SELECT * FROM `shukatsu_app` ORDER BY `es` ASC");
+if ($foralert){
+    $forchecks = array();
+    while ($list = mysqli_fetch_assoc($foralert)) {
+        $forchecks[] = $list;
+    }
+}
+foreach ($forchecks as $forcheck):
+?>
+    <script>
+        var containInterview = false;
+        if (<?php echo $forcheck['interview_'.($num)]; ?>){
+            var containInterview = true;
+        }
+    </script>
+<?php 
+endforeach;
+
+//お気に入りの動作の後
 $display = ['display' => ''];
-//お気に入りの動作の後のため
 if (!$display['display'] = filter_input(INPUT_GET, 'display', FILTER_SANITIZE_STRING)){
     $display['display'] = filter_input(INPUT_POST, 'display', FILTER_SANITIZE_STRING);
 }
-
 //ボタンから表示内容を選択してデータを取得
 if ($display['display'] == 'favorite'){
     $result = $db->query("SELECT * FROM `shukatsu_app` WHERE favorite=1 ORDER BY `es` ASC");
@@ -29,6 +47,14 @@ if (!$result) {
     }
 }
 ?>
+<?php foreach ($companies as $company): ?>
+    <script>
+        var containInterview = false;
+        if (<?php echo $company['interview_'.($num)]; ?>){
+            var containInterview = true;
+        }
+    </script>
+<?php endforeach; ?>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -129,9 +155,6 @@ if (!$result) {
             </thead>
             <tbody>
                 <div class="company">
-                    <script>
-                        var containInterview = false;
-                    </script>
                     <?php if ($result):
                         foreach ($companies as $company): ?>
                             <tr class="company_<?php echo H($company['result']); ?>">
@@ -233,11 +256,6 @@ if (!$result) {
                                 <td colspan="2">ログインID</th>
                                 <td colspan="2"><?php echo H($company['login']); ?></td>
                             </tr>
-                            <script>
-                                if (<?php echo $company['interview_'.($num)]; ?>){
-                                    var containInterview = true;
-                                }
-                            </script>
                     <?php endforeach;
                     endif; ?>
                 </div>
