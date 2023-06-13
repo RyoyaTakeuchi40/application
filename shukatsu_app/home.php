@@ -82,10 +82,28 @@ if (!$result) {
         form {
             display: inline;
         }
-        .company_1{
-			background-color: #0ff;
+        .stage_1 {
+            background-color: #eee;
         }
-        .company_2{
+        .stage_2 {
+            background-color: #ddd;
+        }
+        .stage_3 {
+            background-color: #ccc;
+        }
+        .stage_4 {
+            background-color: #bbb;
+        }
+        .stage_5 {
+            background-color: #aaa;
+        }
+        .stage_6 {
+            background-color: #999;
+        }
+        .company_1 {
+			background-color: #0ff !important;
+        }
+        .company_2 {
 			background-color: #999;
         }
     </style>
@@ -169,8 +187,8 @@ if (!$result) {
                                         <input type="checkbox" name="favorite" value="1" onchange="this.form.submit();" <?php if($company['favorite'] == 1){ echo "checked";} ?>>
                                     </form>
                                 </td>
-                                <td class="es_<?php echo H($company['check_es']); ?>"><?php echo D($company['es']); ?></td>
-                                <td class="es_<?php echo H($company['check_es']); ?>">
+                                <td class="stage_<?php echo H($company['check_es']); ?>"><?php echo D($company['es']); ?></td>
+                                <td class="stage_<?php echo H($company['check_es']); ?>">
                                     <?php
                                     if($company['check_es'] == 1){
                                         echo "選考中";
@@ -185,8 +203,8 @@ if (!$result) {
                                     }
                                     ?>
                                 </td>
-                                <td class="test_<?php echo H($company['check_test']); ?>"><?php echo D($company['test']); ?></td>
-                                <td class="test_<?php echo H($company['check_test']); ?>">
+                                <td class="stage_<?php echo H($company['check_test']); ?>"><?php echo D($company['test']); ?></td>
+                                <td class="stage_<?php echo H($company['check_test']); ?>">
                                     <?php
                                     if($company['test_type'] == 1){
                                         echo "SPI3";
@@ -205,7 +223,7 @@ if (!$result) {
                                     }
                                     ?>
                                 </td>
-                                <td class="test_<?php echo H($company['check_test']); ?>">
+                                <td class="stage_<?php echo H($company['check_test']); ?>">
                                     <?php
                                     if($company['check_test'] == 1){
                                         echo "選考中";
@@ -221,8 +239,8 @@ if (!$result) {
                                     ?>
                                 </td>
                                 <?php for($i=1; $i<=$num; $i++): ?>
-                                    <td class="int<?php echo ($i); ?>_<?php echo H($company['check_'.$i]); ?>"><?php echo D($company['interview_'.($i)]); ?></td>
-                                    <td class="int<?php echo ($i); ?>_<?php echo H($company['check_'.$i]); ?>">
+                                    <td class="stage_<?php echo H($company['check_'.$i]); ?>"><?php echo D($company['interview_'.($i)]); ?></td>
+                                    <td class="stage_<?php echo H($company['check_'.$i]); ?>">
                                         <?php
                                         if($company['check_'.($i)] == 1){
                                             echo "選考中";
