@@ -127,6 +127,10 @@ $login = $row[($num*3)+11];
             echo "GAB";
         }elseif($test_type == 4){
             echo "技術テスト";
+        }elseif($test_type == 5){
+            echo "適性検査";
+        }elseif($test_type == 6){
+            echo "その他";
         }else{
             echo "なし";
         }

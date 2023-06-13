@@ -196,6 +196,10 @@ if (!$result) {
                                         echo "GAB";
                                     }elseif($company['test_type'] == 4){
                                         echo "技術テスト";
+                                    }elseif($company['test_type'] == 5){
+                                        echo "適性検査";
+                                    }elseif($company['test_type'] == 6){
+                                        echo "その他";
                                     }else{
                                         echo "";
                                     }

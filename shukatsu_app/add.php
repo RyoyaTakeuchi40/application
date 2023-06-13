@@ -47,6 +47,8 @@
                 <option value="2">CAB</option>
                 <option value="3">GAB</option>
                 <option value="4">技術テスト</option>
+                <option value="5">適性検査</option>
+                <option value="6">その他</option>
             </select>
         </div>
         <h3>1次面接</h3>

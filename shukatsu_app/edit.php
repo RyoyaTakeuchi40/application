@@ -96,6 +96,8 @@ $login = $row[$num*3+11];
                 <option value="2" <?php if($test_type == 2){echo "selected";} ?>>CAB</option>
                 <option value="3" <?php if($test_type == 3){echo "selected";} ?>>GAB</option>
                 <option value="4" <?php if($test_type == 4){echo "selected";} ?>>技術テスト</option>
+                <option value="5" <?php if($test_type == 5){echo "selected";} ?>>適性検査</option>
+                <option value="6" <?php if($test_type == 6){echo "selected";} ?>>その他</option>
             </select>
         </div>
         <!-- DBの面接の回数繰り返す -->
