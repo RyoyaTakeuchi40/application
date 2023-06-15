@@ -10,7 +10,7 @@ ADD `memo_$newnum` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DE
         $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
         header('Location: edit.php?id=' . $id);
     }
-    header('Location: home.php');
+    header('Location: index.php');
 }else{
     echo "クエリの実行に失敗しました: " . $db->error;
 }

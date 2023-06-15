@@ -117,16 +117,16 @@ if (!$result) {
                 </form>
             </div>
             <div class="display_buttons">
-                <form action="home.php" method="post">
+                <form action="index.php" method="post">
                     <button type="submit" name="display" value="all">すべてを表示</button>
                 </form>      
-                <form action="home.php" method="post">
+                <form action="index.php" method="post">
                     <button type="submit" name="display" value="favorite">気になるだけを表示</button>
                 </form>
-                <form action="home.php" method="post">
+                <form action="index.php" method="post">
                     <button type="submit" name="display" value="mid">選考中だけを表示</button>
                 </form>
-                <form action="home.php" method="post">
+                <form action="index.php" method="post">
                     <button type="submit" name="display" value="offered">内定を表示</button>
                 </form>
             </div>

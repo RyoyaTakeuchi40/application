@@ -45,7 +45,7 @@ $login = $row[($num*3)+11];
     </style>
 </head>
 <body>
-    <form action="home.php" method="post">
+    <form action="index.php" method="post">
         <button type="submit">戻る</button>
     </form>
     <form action="edit.php" method="post">

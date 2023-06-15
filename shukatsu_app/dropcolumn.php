@@ -5,7 +5,7 @@ if ($db->query("ALTER TABLE `shukatsu_app`
 DROP `interview_$num`,
 DROP `check_$num`,
 DROP `memo_$num`;")){
-    header('Location: home.php');
+    header('Location: index.php');
 }else{
     console_log($db);
 }

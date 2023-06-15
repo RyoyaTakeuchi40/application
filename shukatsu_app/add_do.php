@@ -51,7 +51,7 @@ if(isset($_POST['button'])) {
     }
     $stmt -> bind_param('ssssssissssss', $name, $url, $login, $es, $memo_es, $test, $test_type, $int_1, $int_2, $int_3, $memo_1, $memo_2, $memo_3);
     if ($stmt->execute()) {
-        header('Location: home.php');
+        header('Location: index.php');
         exit();
     } else {
         echo $stmt->error;  // エラーメッセージを表示

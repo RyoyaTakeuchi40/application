@@ -5,7 +5,7 @@ if(isset($_POST['delete'])) {
     $stmt = $db -> prepare("DELETE FROM `shukatsu_app` WHERE id = ?");
     $stmt -> bind_param("i", $id);
     if ($stmt->execute()) {
-        header("Location:home.php");
+        header("Location:index.php");
     } else {
         error_log($stmt->error);
     }

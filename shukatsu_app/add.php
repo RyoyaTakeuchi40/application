@@ -17,7 +17,7 @@
     </style>
 </head>
 <body>
-    <form action="home.php" method="post">
+    <form action="index.php" method="post">
         <button type="submit">戻る</button>
     </form>
     <form action="add_do.php" method="post">

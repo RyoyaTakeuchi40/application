@@ -8,7 +8,7 @@ if(isset($_POST['favorite'])) {
     $stmt = $db -> prepare("UPDATE `shukatsu_app` SET `favorite`=? WHERE id=?");
     $stmt -> bind_param('ii', $favorite, $id);
     if ($stmt->execute()) {
-        header('Location: home.php?display=' . $display);
+        header('Location: index.php?display=' . $display);
         exit();
     } else {
         error_log($stmt->error);
