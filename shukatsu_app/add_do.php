@@ -1,5 +1,7 @@
 <?php
 require("db.php");
+require("cntcolumn.php");
+
 if(isset($_POST['button'])) {
     $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
     $url = filter_input(INPUT_POST, 'url', FILTER_SANITIZE_STRING);
@@ -45,7 +47,7 @@ if(isset($_POST['button'])) {
     $memo_2 = filter_input(INPUT_POST, 'memo_2', FILTER_SANITIZE_STRING);
     $memo_3 = filter_input(INPUT_POST, 'memo_3', FILTER_SANITIZE_STRING);
 
-    $stmt = $db -> prepare("INSERT INTO `shukatsu_app` (`name`,`url`,`login`,`es`,`memo_es`,`test`,`test_type`,`interview_1`,`interview_2`,`interview_3`,`memo_1`,`memo_2`,`memo_3`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $db -> prepare("INSERT INTO `$user_name` (`name`,`url`,`login`,`es`,`memo_es`,`test`,`test_type`,`interview_1`,`interview_2`,`interview_3`,`memo_1`,`memo_2`,`memo_3`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     if (!$stmt) {
         echo $db->error;  // エラーメッセージを表示
     }

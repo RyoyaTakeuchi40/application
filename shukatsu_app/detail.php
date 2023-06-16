@@ -1,5 +1,6 @@
 <?php
 require("db.php");
+require("cntcolumn.php");
 
 if (isset($_POST['id'])){
 }else{
@@ -8,7 +9,7 @@ if (isset($_POST['id'])){
 }
 
 $postid = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
-$stmt = $db -> prepare("SELECT * FROM `shukatsu_app` WHERE id=?");
+$stmt = $db -> prepare("SELECT * FROM `$user_name` WHERE id=?");
 $stmt -> bind_param("i", $postid);
 $stmt -> execute();
 //要素を配列で取得

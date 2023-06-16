@@ -1,8 +1,9 @@
 <?php
 require("db.php");
+require("cntcolumn.php");
 
 if (isset($_POST['dropcolumn'])){
-    $db->query("ALTER TABLE `shukatsu_app`
+    $db->query("ALTER TABLE `$user_name`
     DROP `interview_$num`,
     DROP `check_$num`,
     DROP `memo_$num`;");

@@ -15,9 +15,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     if (!$stmt) {
 		echo $db->error;  // エラーメッセージを表示
 	}
+	$name = $form['name'];
+	$email = $form['email'];
 	$password = password_hash($form['password'], PASSWORD_DEFAULT);
-	$stmt -> bind_param('sss', $form['name'],  $form['email'],  $password);
+	$stmt -> bind_param('sss', $name,  $email,  $password);
 	if ($stmt->execute()) {
+		//tableの作成
+		$result = $db->query("CREATE TABLE `job_application`.`$name` (
+			`id` INT(11) NOT NULL AUTO_INCREMENT , 
+			`name` TEXT NOT NULL , 
+			`favorite` INT(11) NOT NULL DEFAULT '0' , 
+			`es` DATE NULL DEFAULT NULL , 
+			`check_es` INT(11) NOT NULL DEFAULT '0' , 
+			`memo_es` TEXT NULL DEFAULT NULL , 
+			`test` DATE NULL DEFAULT NULL , 
+			`test_type` INT(11) NOT NULL DEFAULT '0' , 
+			`check_test` INT(11) NULL DEFAULT '0' , 
+			`interview_1` DATE NULL DEFAULT NULL , 
+			`check_1` INT(11) NOT NULL DEFAULT '0' , 
+			`memo_1` TEXT NULL DEFAULT NULL , 
+			`interview_2` DATE NULL DEFAULT NULL , 
+			`check_2` INT(11) NOT NULL DEFAULT '0' , 
+			`memo_2` TEXT NULL DEFAULT NULL , 
+			`interview_3` DATE NULL DEFAULT NULL , 
+			`check_3` INT(11) NOT NULL DEFAULT '0' , 
+			`memo_3` TEXT NULL DEFAULT NULL , 
+			`result` INT NOT NULL DEFAULT '0' , 
+			`url` TEXT NULL DEFAULT NULL , 
+			`login` TEXT NULL DEFAULT NULL , 
+			PRIMARY KEY (`id`)) ENGINE = InnoDB
+			");
 		unset($_SESSION['form']);
         header('Location: thanks.php');
         exit();

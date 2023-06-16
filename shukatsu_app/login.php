@@ -55,8 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     <div id="content">
         <div id="lead">
             <p>メールアドレスとパスワードを記入してログインしてください。</p>
-            <p>入会手続きがまだの方はこちらからどうぞ。</p>
-            <p>&raquo;<a href="join/">入会手続きをする</a></p>
+            <p>会員登録がまだの方は<a href="join/">こちら</a>からどうぞ。</p>
         </div>
         <form action="" method="post">
             <dl>

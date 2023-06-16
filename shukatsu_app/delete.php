@@ -1,8 +1,10 @@
 <?php
 require("db.php");
+require("cntcolumn.php");
+
 if(isset($_POST['delete'])) {
     $id = filter_input(INPUT_POST, 'delete', FILTER_SANITIZE_NUMBER_INT);
-    $stmt = $db -> prepare("DELETE FROM `shukatsu_app` WHERE id = ?");
+    $stmt = $db -> prepare("DELETE FROM `$user_name` WHERE id = ?");
     $stmt -> bind_param("i", $id);
     if ($stmt->execute()) {
         header("Location:index.php");

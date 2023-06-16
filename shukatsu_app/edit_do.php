@@ -1,5 +1,7 @@
 <?php
 require("db.php");
+require("cntcolumn.php");
+
 if(isset($_POST['id'])) {
     $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
     $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
@@ -45,13 +47,13 @@ if(isset($_POST['id'])) {
     $login = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_STRING);
 
     //ループ以外の部分をbind
-    $stmt = $db -> prepare("UPDATE `shukatsu_app` SET `name`=?, `url`=?, `login`=?, `es`=?, `memo_es`=?, `test`=?, `test_type`=?, `check_es`=?, `check_test`=?, `result`=? WHERE id=?");
+    $stmt = $db -> prepare("UPDATE `$user_name` SET `name`=?, `url`=?, `login`=?, `es`=?, `memo_es`=?, `test`=?, `test_type`=?, `check_es`=?, `check_test`=?, `result`=? WHERE id=?");
     $stmt -> bind_param('ssssssiiiii', $name, $url, $login, $es, $memo_es, $test, $test_type, $check_es, $check_test, $result, $id);
     $stmt->execute();
 
     //ループ部分をbind
     for ($i=1;$i<=$num;$i++){
-        $stmt = $db -> prepare("UPDATE `shukatsu_app` SET `interview_$i`=?, `check_$i`=?, `memo_$i`=? WHERE id=?");
+        $stmt = $db -> prepare("UPDATE `$user_name` SET `interview_$i`=?, `check_$i`=?, `memo_$i`=? WHERE id=?");
         $stmt -> bind_param('sisi', ${'int_'.$i}, ${'check_'.$i}, ${'memo_'.$i}, $id);
         $stmt -> execute();
     }

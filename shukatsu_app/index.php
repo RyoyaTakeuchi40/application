@@ -1,19 +1,16 @@
 <?php
 require("db.php");
+require("cntcolumn.php");
 
-session_start();
 
 if (isset($_SESSION['id']) && isset($_SESSION['name'])){
-    //SESSION有効期限の更新
-    $_SESSION = $_SESSION;
-    $user_name = $_SESSION['name'];
 }else{
 	header('Location: login.php');
 	exit();
 }
 
 //display変更中でもカラムの減少alertを出すため
-$foralert = $db->query("SELECT * FROM `shukatsu_app` ORDER BY `es` ASC");
+$foralert = $db->query("SELECT * FROM `$user_name` ORDER BY `es` ASC");
 if ($foralert){
     $forchecks = array();
     while ($list = mysqli_fetch_assoc($foralert)) {
@@ -38,13 +35,13 @@ if (!$display = filter_input(INPUT_GET, 'display', FILTER_SANITIZE_STRING)){
 }
 //ボタンから表示内容を選択してデータを取得
 if ($display == 'favorite'){
-    $result = $db->query("SELECT * FROM `shukatsu_app` WHERE favorite=1 ORDER BY `es` ASC");
+    $result = $db->query("SELECT * FROM `$user_name` WHERE favorite=1 ORDER BY `es` ASC");
 }elseif ($display == 'mid'){
-    $result = $db->query("SELECT * FROM `shukatsu_app` WHERE result=0 ORDER BY `es` ASC");
+    $result = $db->query("SELECT * FROM `$user_name` WHERE result=0 ORDER BY `es` ASC");
 }elseif ($display == 'offered'){
-    $result = $db->query("SELECT * FROM `shukatsu_app` WHERE result=1 ORDER BY `es` ASC");
+    $result = $db->query("SELECT * FROM `$user_name` WHERE result=1 ORDER BY `es` ASC");
 }else{
-    $result = $db->query("SELECT * FROM `shukatsu_app` ORDER BY `es` ASC");
+    $result = $db->query("SELECT * FROM `$user_name` ORDER BY `es` ASC");
 }
 
 if (!$result) {
