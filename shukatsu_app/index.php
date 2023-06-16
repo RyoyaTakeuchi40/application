@@ -1,6 +1,15 @@
 <?php
 require("db.php");
 
+session_start();
+
+if (isset($_SESSION['id']) && isset($_SESSION['name'])){
+    $user_name = $_SESSION['name'];
+}else{
+	header('Location: login.php');
+	exit();
+}
+
 //display変更中でもカラムの減少alertを出すため
 $foralert = $db->query("SELECT * FROM `shukatsu_app` ORDER BY `es` ASC");
 if ($foralert){
@@ -110,6 +119,7 @@ if (!$result) {
 </head>
 <body>
     <div class="comtainer">
+        <p>ようこそ、<?php echo $user_name;?>さん</p>
         <div class="buttons">
             <div class="addbutton">
                 <form action="add.php" method="post">
