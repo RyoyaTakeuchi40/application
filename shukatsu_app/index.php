@@ -130,7 +130,7 @@ if (!$result) {
 </head>
 <body>
     <div class="comtainer">
-        <p>ようこそ、<?php echo $user_name;?>さん</p>
+        <p>ようこそ、<?php echo $user_name;?>さん<span style="text-align: right;"><a href="logout.php">ログアウト</a></span></p>
         <div class="buttons">
             <div class="addbutton">
                 <form action="add.php" method="post">

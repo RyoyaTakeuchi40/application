@@ -20,6 +20,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $form['name'] = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
     if ($form['name'] === ''){
         $error['name'] = 'blank';
+    }else{
+        $stmt = $db -> prepare("SELECT COUNT(*) FROM `users` WHERE name=?");
+        if (!$stmt) {
+            echo $db->error;  // エラーメッセージを表示
+        }
+        $stmt -> bind_param('s', $form['name']);
+        $stmt -> execute();
+        $stmt -> bind_result($cnt_name);
+        $stmt -> fetch();
+        $stmt->close();
+        
+        if ($cnt_name > 0){
+            $error['name'] = 'duplicate';
+        }
+
     }
 
     $form['email'] = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
@@ -32,12 +47,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         }
         $stmt -> bind_param('s', $form['email']);
         $stmt -> execute();
-        $stmt -> bind_result($cnt);
+        $stmt -> bind_result($cnt_email);
         $stmt -> fetch();
+        $stmt->close();
         
-        if ($cnt > 0){
+        if ($cnt_email > 0){
             $error['email'] = 'duplicate';
         }
+
     }
 
     $form['password'] = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
@@ -83,6 +100,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                     <input type="text" name="name" size="35" maxlength="255" value="<?php echo H($form['name']); ?>"/>
                     <?php if (isset($error['name']) && $error['name'] === 'blank'): ?>
                         <p class="error">* ニックネームを入力してください</p>
+                    <?php endif; ?>
+                    <?php if (isset($error['name']) && $error['name'] === 'duplicate'): ?>
+                        <p class="error">* 指定されたニックネームはすでに登録されています</p>
                     <?php endif; ?>
                 </dd>
                 <dt>メールアドレス<span class="required">必須</span></dt>

@@ -1,16 +1,4 @@
 <?php
-//データベース接続
-$db = new mysqli('localhost:8889', 'root', 'root', 'job_application');
-
-
-$forcnt = $db->query("SELECT * FROM `shukatsu_app`");
-//columnの数を数える
-$cnt =  $forcnt->field_count;
-//現在の面接の回数
-$num = ($cnt -12)/3;
-//足される面接は何回目か
-$newnum = $num +1;
-
 function H($value){
     return htmlspecialchars($value, ENT_QUOTES);
 }
@@ -28,4 +16,17 @@ function console_log($data){
     echo 'console.log('.json_encode($data).')';
     echo '</script>';
 }
+
+//データベース接続
+$db = new mysqli('localhost:8889', 'root', 'root', 'job_application');
+
+
+$forcnt = $db->query("SELECT * FROM `shukatsu_app`");
+//columnの数を数える
+$cnt =  $forcnt->field_count;
+//現在の面接の回数
+$num = ($cnt -12)/3;
+//足される面接は何回目か
+$newnum = $num +1;
+
 ?>
