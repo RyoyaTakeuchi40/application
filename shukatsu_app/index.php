@@ -4,6 +4,8 @@ require("db.php");
 session_start();
 
 if (isset($_SESSION['id']) && isset($_SESSION['name'])){
+    //SESSION有効期限の更新
+    $_SESSION = $_SESSION;
     $user_name = $_SESSION['name'];
 }else{
 	header('Location: login.php');
@@ -30,16 +32,16 @@ foreach ($forchecks as $forcheck):
 endforeach;
 
 //お気に入りの動作の後
-$display = ['display' => ''];
-if (!$display['display'] = filter_input(INPUT_GET, 'display', FILTER_SANITIZE_STRING)){
-    $display['display'] = filter_input(INPUT_POST, 'display', FILTER_SANITIZE_STRING);
+$display = '';
+if (!$display = filter_input(INPUT_GET, 'display', FILTER_SANITIZE_STRING)){
+    $display = filter_input(INPUT_POST, 'display', FILTER_SANITIZE_STRING);
 }
 //ボタンから表示内容を選択してデータを取得
-if ($display['display'] == 'favorite'){
+if ($display == 'favorite'){
     $result = $db->query("SELECT * FROM `shukatsu_app` WHERE favorite=1 ORDER BY `es` ASC");
-}elseif ($display['display'] == 'mid'){
+}elseif ($display == 'mid'){
     $result = $db->query("SELECT * FROM `shukatsu_app` WHERE result=0 ORDER BY `es` ASC");
-}elseif ($display['display'] == 'offered'){
+}elseif ($display == 'offered'){
     $result = $db->query("SELECT * FROM `shukatsu_app` WHERE result=1 ORDER BY `es` ASC");
 }else{
     $result = $db->query("SELECT * FROM `shukatsu_app` ORDER BY `es` ASC");
@@ -85,10 +87,10 @@ if (!$result) {
 		th {
 			background-color: #f2f2f2;
 		}
-        button {
+        .buttons button {
             margin: 3px;
         }
-        form {
+        .buttons form {
             display: inline;
         }
         .stage_1 {
@@ -110,10 +112,19 @@ if (!$result) {
             background-color: #999;
         }
         .company_1 {
-			background-color: #0ff !important;
+			background-color: #0ff;
         }
         .company_2 {
 			background-color: #999;
+        }
+        .company_name{
+            width: 100%;
+            border: none;
+            background: transparent;
+        }
+        .company_name:hover{
+            opacity: 0.6;
+            transform: scale(1.1, 1.1);
         }
     </style>
 </head>
@@ -188,11 +199,15 @@ if (!$result) {
                             <tr class="company_<?php echo H($company['result']); ?>">
                                 <!-- tableの1つの箱がまるごとリンクになるようにするにはどうしたらいいですか -->
                                 <!-- JSのonclickだとphpがうまく動作しないので嫌です -->
-                                <td><a href="detail.php?id=<?php echo H($company['id']); ?>"><?php echo H($company['name']); ?></td></a>
+                                <td>
+                                    <form action="detail.php" method="post">
+                                        <button class="company_name" type="submit" name="id" value="<?php echo H($company['id']); ?>"><?php echo H($company['name']); ?></button>
+                                    </form>
+                                </td>
                                 <td>
                                     <form action="favorite.php" method="post">
                                         <input type="hidden" name="id" value="<?php echo H($company['id']); ?>">
-                                        <input type="hidden" name="display" value="<?php echo $display['display']; ?>"><!-- お気に入り動作後も表示を変えないため -->
+                                        <input type="hidden" name="display" value="<?php echo $display; ?>"><!-- お気に入り動作後も表示を変えないため -->
                                         <input type="hidden" name="favorite" value="0"><!-- チェックが外されたときにお気に入りを外すSQLを実行する -->
                                         <input type="checkbox" name="favorite" value="1" onchange="this.form.submit();" <?php if($company['favorite'] == 1){ echo "checked";} ?>>
                                     </form>

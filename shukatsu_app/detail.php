@@ -1,15 +1,15 @@
 <?php
 require("db.php");
 
-if (isset($_GET['id'])){
+if (isset($_POST['id'])){
 }else{
     header('Location: index.php');
 	exit();
 }
 
-$gotid = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+$postid = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 $stmt = $db -> prepare("SELECT * FROM `shukatsu_app` WHERE id=?");
-$stmt -> bind_param("i", $gotid);
+$stmt -> bind_param("i", $postid);
 $stmt -> execute();
 //要素を配列で取得
 $result = $stmt->get_result();
