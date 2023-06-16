@@ -9,5 +9,8 @@ if(isset($_POST['delete'])) {
     } else {
         error_log($stmt->error);
     }
+}else{
+    header('Location: index.php');
+	exit();
 }
 ?>

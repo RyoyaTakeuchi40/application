@@ -1,6 +1,12 @@
 <?php
 require("db.php");
 
+if (isset($_POST['id'])){
+}else{
+    header('Location: index.php');
+	exit();
+}
+
 if (!$postid = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING)){
     $postid = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
 }

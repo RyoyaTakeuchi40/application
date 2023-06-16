@@ -13,5 +13,8 @@ if(isset($_POST['favorite'])) {
     } else {
         error_log($stmt->error);
     }
+}else{
+    header('Location: index.php');
+	exit();
 }
 ?>

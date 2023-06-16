@@ -56,5 +56,8 @@ if(isset($_POST['button'])) {
     } else {
         echo $stmt->error;  // エラーメッセージを表示
     }
+}else{
+    header('Location: index.php');
+	exit();
 }
 ?>

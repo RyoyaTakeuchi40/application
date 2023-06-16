@@ -62,4 +62,8 @@ if(isset($_POST['id'])) {
     } else {
         error_log($stmt->error);
     }
+}else{
+    header('Location: index.php');
+	exit();
 }
+?>

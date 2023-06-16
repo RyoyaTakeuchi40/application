@@ -1,3 +1,10 @@
+<?php
+if (isset($_POST['add'])){
+}else{
+    header('Location: index.php');
+	exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>

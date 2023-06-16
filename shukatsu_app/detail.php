@@ -1,6 +1,12 @@
 <?php
 require("db.php");
 
+if (isset($_GET['id'])){
+}else{
+    header('Location: index.php');
+	exit();
+}
+
 $gotid = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 $stmt = $db -> prepare("SELECT * FROM `shukatsu_app` WHERE id=?");
 $stmt -> bind_param("i", $gotid);
