@@ -15,4 +15,6 @@ $num = ($cnt -12)/3;
 //足される面接は何回目か
 $newnum = $num +1;
 
+echo "use_name: " . $user_name . "<br>";
+echo "num: " . $num . "<br>";
 ?>

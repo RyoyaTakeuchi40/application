@@ -2,7 +2,7 @@
 require("db.php");
 require("cntcolumn.php");
 
-if (isset($_POST['id'])){
+if (isset($_POST['id']) || isset($_GET['id'])){
 }else{
     header('Location: index.php');
 	exit();

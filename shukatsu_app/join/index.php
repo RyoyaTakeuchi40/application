@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         $stmt -> execute();
         $stmt -> bind_result($cnt_name);
         $stmt -> fetch();
-        $stmt->close();
+        $stmt -> close();
         
         if ($cnt_name > 0){
             $error['name'] = 'duplicate';
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         $stmt -> execute();
         $stmt -> bind_result($cnt_email);
         $stmt -> fetch();
-        $stmt->close();
+        $stmt -> close();
         
         if ($cnt_email > 0){
             $error['email'] = 'duplicate';

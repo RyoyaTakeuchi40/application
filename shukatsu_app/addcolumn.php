@@ -11,6 +11,7 @@ if (isset($_POST['addcolumn'])){
     if(isset($_POST['id'])) {
         $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
         header('Location: edit.php?id=' . $id);
+        exit();
     }
     header('Location: index.php');
 }else{

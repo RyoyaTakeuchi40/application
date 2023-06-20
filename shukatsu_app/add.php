@@ -1,4 +1,7 @@
 <?php
+require("db.php");
+require("cntcolumn.php");
+
 if (isset($_POST['add'])){
 }else{
     header('Location: index.php');
@@ -58,21 +61,14 @@ if (isset($_POST['add'])){
                 <option value="6">その他</option>
             </select>
         </div>
-        <h3>1次面接</h3>
-        <div class="fromdb">
-            <input type="date" name="int_1">
-            <textarea name="memo_1" cols="30" rows="5"></textarea>
-        </div>
-        <h3>2次面接</h3>
-        <div class="fromdb">
-            <input type="date" name="int_2">
-            <textarea name="memo_2" cols="30" rows="5"></textarea>
-        </div>
-        <h3>3次面接</h3>
-        <div class="fromdb">
-            <input type="date" name="int_3">
-            <textarea name="memo_3" cols="30" rows="5"></textarea>
-        </div>
+        <!-- DBの面接の回数繰り返す -->
+        <?php for($i=1; $i<=$num; $i++): ?>
+            <h3><?php echo $i; ?>次面接</h3>
+            <div class="fromdb">
+                <input type="date" name="int_<?php echo $i; ?>">
+                <textarea name="memo_<?php echo $i; ?>" cols="30" rows="3"></textarea>
+            </div>
+        <?php endfor; ?>
         <button typy="submit" name="button">追加する</button>
     </form>
 </body>
