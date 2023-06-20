@@ -1,6 +1,6 @@
 <?php
-require("db.php");
-require("cntcolumn.php");
+require("./common/db.php");
+require("./common/cntcolumn.php");
 
 if (isset($_POST['add'])){
 }else{

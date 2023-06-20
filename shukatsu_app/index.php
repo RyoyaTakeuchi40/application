@@ -1,6 +1,7 @@
 <?php
-require("db.php");
-require("cntcolumn.php");
+require("./common/db.php");
+require("./common/cntcolumn.php");
+
 
 
 if (isset($_SESSION['id']) && isset($_SESSION['name'])){
@@ -186,7 +187,7 @@ if (!$result) {
                     <?php for($i=1; $i<=$num; $i++): ?>
                         <th colspan="2"><?php echo $i; ?>次面接</th>
                     <?php endfor; ?>
-                    <th>最終結果</th>
+                    <th>結果</th>
                 </tr> 
             </thead>
             <tbody>

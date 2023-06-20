@@ -1,6 +1,6 @@
 <?php
-require("db.php");
-require("cntcolumn.php");
+require("./common/db.php");
+require("./common/cntcolumn.php");
 
 if(isset($_POST['id'])) {
     $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
