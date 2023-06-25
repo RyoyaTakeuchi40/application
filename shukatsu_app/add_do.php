@@ -1,6 +1,6 @@
 <?php
-require("./common/db.php");
-require("./common/cntcolumn.php");
+require("common/db.php");
+require("common/cntcolumn.php");
 
 if(isset($_POST['button'])) {
     $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);

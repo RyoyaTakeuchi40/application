@@ -1,6 +1,6 @@
 <?php
-require("./common/db.php");
-require("./common/cntcolumn.php");
+require("common/db.php");
+require("common/cntcolumn.php");
 
 if(isset($_POST['delete'])) {
     $id = filter_input(INPUT_POST, 'delete', FILTER_SANITIZE_NUMBER_INT);

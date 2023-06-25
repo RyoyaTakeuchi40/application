@@ -1,6 +1,6 @@
 <?php
-require("./common/db.php");
-require("./common/cntcolumn.php");
+require("common/db.php");
+require("common/cntcolumn.php");
 
 if (isset($_POST['dropcolumn'])){
     $db->query("ALTER TABLE `$user_name`

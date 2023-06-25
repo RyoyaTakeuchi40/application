@@ -1,6 +1,6 @@
 <?php
-require("./common/db.php");
-require("./common/cntcolumn.php");
+require("common/db.php");
+require("common/cntcolumn.php");
 
 if (isset($_POST['id'])){
 }else{
@@ -42,14 +42,6 @@ $login = $row[($num*3)+11];
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>詳細画面</title>
-    <style>
-        p {
-            border: solid 1px;
-        }
-        .fromdb {
-            margin: 0 12px;
-        }
-    </style>
 </head>
 <body>
     <form action="index.php" method="post">

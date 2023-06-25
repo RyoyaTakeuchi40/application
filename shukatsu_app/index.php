@@ -1,6 +1,6 @@
 <?php
-require("./common/db.php");
-require("./common/cntcolumn.php");
+require("common/db.php");
+require("common/cntcolumn.php");
 
 
 
@@ -72,62 +72,30 @@ if (!$result) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>一覧画面</title>
-    <style>
-        table {
-			border-collapse: collapse;
-			margin-bottom: 20px;
-		}
-		th, td {
-			border: 1px solid #ddd;
-			padding: 8px;
-			text-align: center;
-		}
-		th {
-			background-color: #f2f2f2;
-		}
-        .buttons button {
-            margin: 3px;
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        //DBの面接の回数が1回だった場合にカラムの減少を実行しない
+        function prevent(){
+            if (<?php echo $num ?>== 1){
+                alert('これ以上は欄を減らせません')
+                //戻る
+                return false;
+            }else if (containInterview){
+        //入力されている項目がある場合に確認する
+                var comfirm = window.confirm(<?php echo $num; ?> + '次面接に入力されている事項がありますが\n本当に削除しますか？');
+                if (comfirm){
+                    //dropcolumn.phpに遷移
+                    alert('削除されました。')
+                }else{
+                    //戻る
+                    return false;
+                } 
+            }
         }
-        .buttons form {
-            display: inline;
-        }
-        .stage_1 {
-            background-color: #eee;
-        }
-        .stage_2 {
-            background-color: #ddd;
-        }
-        .stage_3 {
-            background-color: #ccc;
-        }
-        .stage_4 {
-            background-color: #bbb;
-        }
-        .stage_5 {
-            background-color: #aaa;
-        }
-        .stage_6 {
-            background-color: #999;
-        }
-        .company_1 {
-			background-color: #0ff;
-        }
-        .company_2 {
-			background-color: #999;
-        }
-        .company_name{
-            width: 100%;
-            border: none;
-            background: transparent;
-        }
-        .company_name:hover{
-            opacity: 0.6;
-            transform: scale(1.1, 1.1);
-        }
-    </style>
+    </script>
 </head>
 <body>
-    <div class="comtainer">
+    <div class="container">
         <p>ようこそ、<?php echo $user_name;?>さん<span style="text-align: right;"><a href="logout.php">ログアウト</a></span></p>
         <div class="buttons">
             <div class="addbutton">
@@ -149,44 +117,26 @@ if (!$result) {
                     <button type="submit" name="display" value="offered">内定を表示</button>
                 </form>
             </div>
-            <div class="column_buttons">
-                <form action="addcolumn.php" method="post">
-                    <button type="submit" name="addcolumn">欄を追加</button>
-                </form>
-                <form action="dropcolumn.php" method="post" onsubmit="return prevent();">
-                    <button type="submit" name="dropcolumn">欄を減少</button>
-                    <script>
-                        //DBの面接の回数が1回だった場合に実行しない
-                        function prevent(){
-                            if (<?php echo $num ?>== 1){
-                                alert('これ以上は欄を減らせません')
-                                //戻る
-                                return false;
-                            }else if (containInterview){
-                                var comfirm = window.confirm(<?php echo $num; ?> + '次面接に入力されている事項がありますが\n本当に削除しますか？');
-                                if (comfirm){
-                                    //dropcolumn.phpに遷移
-                                    alert('削除されました。')
-                                }else{
-                                    //戻る
-                                    return false;
-                                } 
-                            }
-                        }
-                    </script>
-                </form>
-            </div>
         </div>
-        <table>
+        <table width="100%">
             <thead>
                 <tr>
                     <th>会社名</th>
-                    <th>気になる</th>
+                    <th>☆</th>
                     <th colspan="2">ES</th>
                     <th colspan="3">テスト</th>
-                    <?php for($i=1; $i<=$num; $i++): ?>
+                    <?php for($i=1; $i<$num; $i++): ?>
                         <th colspan="2"><?php echo $i; ?>次面接</th>
                     <?php endfor; ?>
+                    <th colspan="2" class="last">
+                        <form action="dropcolumn.php" method="post" onsubmit="return prevent();">
+                            <button type="submit" name="dropcolumn" class="columnbuttons dropcolumn">削<br>除</button>
+                        </form>
+                        <?php echo $num; ?>次面接
+                        <form action="addcolumn.php" method="post">
+                            <button type="submit" name="addcolumn" class="columnbuttons addcolumn">追<br>加</button>
+                        </form>
+                    </th>
                     <th>結果</th>
                 </tr> 
             </thead>
@@ -195,8 +145,6 @@ if (!$result) {
                     <?php if ($result):
                         foreach ($companies as $company): ?>
                             <tr class="company_<?php echo H($company['result']); ?>">
-                                <!-- tableの1つの箱がまるごとリンクになるようにするにはどうしたらいいですか -->
-                                <!-- JSのonclickだとphpがうまく動作しないので嫌です -->
                                 <td>
                                     <form action="detail.php" method="post">
                                         <button class="company_name" type="submit" name="id" value="<?php echo H($company['id']); ?>"><?php echo H($company['name']); ?></button>
@@ -210,8 +158,8 @@ if (!$result) {
                                         <input type="checkbox" name="favorite" value="1" onchange="this.form.submit();" <?php if($company['favorite'] == 1){ echo "checked";} ?>>
                                     </form>
                                 </td>
-                                <td class="stage_<?php echo H($company['check_es']); ?>"><?php echo D($company['es']); ?></td>
-                                <td class="stage_<?php echo H($company['check_es']); ?>">
+                                <td class="company_<?php echo H($company['result']); ?> stage_<?php echo H($company['check_es']); ?>"><?php echo D($company['es']); ?></td>
+                                <td class="company_<?php echo H($company['result']); ?> stage_<?php echo H($company['check_es']); ?>">
                                     <?php
                                     if($company['check_es'] == 1){
                                         echo "選考中";
@@ -226,8 +174,8 @@ if (!$result) {
                                     }
                                     ?>
                                 </td>
-                                <td class="stage_<?php echo H($company['check_test']); ?>"><?php echo D($company['test']); ?></td>
-                                <td class="stage_<?php echo H($company['check_test']); ?>">
+                                <td class="company_<?php echo H($company['result']); ?> stage_<?php echo H($company['check_test']); ?>"><?php echo D($company['test']); ?></td>
+                                <td class="company_<?php echo H($company['result']); ?> stage_<?php echo H($company['check_test']); ?>">
                                     <?php
                                     if($company['test_type'] == 1){
                                         echo "SPI3";
@@ -246,7 +194,7 @@ if (!$result) {
                                     }
                                     ?>
                                 </td>
-                                <td class="stage_<?php echo H($company['check_test']); ?>">
+                                <td class="company_<?php echo H($company['result']); ?> stage_<?php echo H($company['check_test']); ?>">
                                     <?php
                                     if($company['check_test'] == 1){
                                         echo "選考中";
@@ -262,8 +210,8 @@ if (!$result) {
                                     ?>
                                 </td>
                                 <?php for($i=1; $i<=$num; $i++): ?>
-                                    <td class="stage_<?php echo H($company['check_'.$i]); ?>"><?php echo D($company['interview_'.($i)]); ?></td>
-                                    <td class="stage_<?php echo H($company['check_'.$i]); ?>">
+                                    <td class="company_<?php echo H($company['result']); ?> stage_<?php echo H($company['check_'.$i]); ?>"><?php echo D($company['interview_'.($i)]); ?></td>
+                                    <td class="company_<?php echo H($company['result']); ?> stage_<?php echo H($company['check_'.$i]); ?>">
                                         <?php
                                         if($company['check_'.($i)] == 1){
                                             echo "選考中";

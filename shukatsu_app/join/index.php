@@ -1,5 +1,5 @@
 <?php
-require("../db.php");
+require("../common/db.php");
 
 session_start();
 
@@ -93,6 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     <div id="content">
         <p>次のフォームに必要事項をご記入ください。</p>
+        <p>会員登録がお済みの方は<a href="../login.php">こちら</a>からログインしてください。</p>
         <form action="" method="post" enctype="multipart/form-data">
             <dl>
                 <dt>ニックネーム<span class="required">必須</span></dt>

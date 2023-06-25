@@ -1,0 +1,70 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+th {
+    background-color: #f2f2f2;
+}
+.buttons button {
+    margin: 3px;
+}
+form {
+    display: inline;
+}
+.stage_1 {
+    background-color: #eee;
+}
+.stage_2 {
+    background-color: #ddd;
+}
+.stage_3 {
+    background-color: #ccc;
+}
+.stage_4 {
+    background-color: #bbb;
+}
+.stage_5 {
+    background-color: #aaa;
+}
+.stage_6 {
+    background-color: #999;
+}
+.company_1 {
+    background-color: #0ff;
+}
+.company_2 {
+    background-color: #999;
+}
+.company_name{
+    width: 100%;
+    border: none;
+    background: transparent;
+}
+.company_name:hover{
+    opacity: 0.6;
+    transform: scale(1.1, 1.1);
+}
+.last{
+    position   : relative;
+}
+.last:hover .columnbuttons{
+    display: inline;
+}
+.columnbuttons{
+    display: none;
+    opacity: 0.8;
+    background-color: #f2f2f2;
+}
+.addcolumn{
+    position: absolute;
+}
+.dropcolumn{
+    position: absolute;
+    margin-left: -30px;
+}

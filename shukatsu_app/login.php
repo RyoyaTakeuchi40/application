@@ -1,5 +1,5 @@
 <?php
-require('db.php');
+require('common/db.php');
 
 session_start();
 
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 <body>
 <div id="wrap">
     <div id="head">
-        <h1>ログインする</h1>
+        <h1>ログイン</h1>
     </div>
     <div id="content">
         <div id="lead">
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                 </dd>
             </dl>
             <div>
-                <input type="submit" value="ログインする"/>
+                <input type="submit" value="ログイン"/>
             </div>
         </form>
     </div>
