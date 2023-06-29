@@ -18,10 +18,14 @@ if ($foralert){
         $forchecks[] = $list;
     }
 }
+?>
+<script>
+    var containInterview = false;
+</script>
+<?php
 foreach ($forchecks as $forcheck):
 ?>
     <script>
-        var containInterview = false;
         if (<?php echo $forcheck['interview_'.($num)]; ?>){
             var containInterview = true;
         }
@@ -242,11 +246,11 @@ if (!$result) {
                                 </td>
                             </tr>
                             <tr class="company_<?php echo H($company['result']); ?>"  style="font-size:70%">
-                                <td>マイページURL</th>
+                                <th>マイページURL</th>
                                 <td colspan="6">
                                     <a href="<?php echo H($company['url']); ?>"><?php echo H($company['url']); ?></a>
                                 </td>
-                                <td colspan="2">ログインID</th>
+                                <th colspan="2">ログインID</th>
                                 <td colspan="2"><?php echo H($company['login']); ?></td>
                             </tr>
                     <?php endforeach;

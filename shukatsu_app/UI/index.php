@@ -29,7 +29,7 @@ if (!$result) {
     echo "表示する内容がありません";
     echo $db->error;
 }else{
-    //取得したデータを会社ごとの配列に格納
+    // 取得したデータを会社ごとの配列に格納
     $companies = array();
     while ($row = mysqli_fetch_assoc($result)) {
         $companies[] = $row;
@@ -69,44 +69,64 @@ if(isset($_POST['display'])) {
                 <th>☆</th>
                 <th colspan="2">ES</th>
                 <th colspan="3">テスト</th>
-                <template v-for="i in num">
+                <template v-for="i in num-1">
                     <th colspan="2">{{ i }}次面接</th>
                 </template>
+                <th colspan="2" class="last">
+                        <form action="k" method="post" v-on:submit="handleSubmit">
+                            <button type="submit" name="dropcolumn" class="columnbuttons dropcolumn">削<br>除</button>
+                        </form>
+                        {{ num }}次面接
+                        <form action="" method="post">
+                            <button type="submit" name="addcolumn" class="columnbuttons addcolumn">追<br>加</button>
+                        </form>
+                    </th>
                 <th>結果</th>
             </tr> 
-            <tr v-for="company in companies" :key="company['id']">
+            <template v-for="company in companies" :key="company['id']">
                 <template v-if=" 
                 display == 'ongoing' && company['result'] == 0 || 
                 display == 'favorite' && company['favorite'] == 1 || 
                 display == 'all' || 
                 display == 'get' && company['result'] == 1 "
                 >
-                    <td>{{ company['name'] }}</td>
-                    <td>
-                        <form action="" method="post">
-                            <input type="hidden" name="id" :value="company['id']">
-                            <input type="hidden" name="display" :value="display">
-                            <input type="hidden" name="favorite" value="0"><!-- チェックが外されたときにお気に入りを外すSQLを実行する -->
-                            <input type="checkbox" name="favorite" value="1" :checked="company['favorite'] == 1" onchange="this.form.submit()">
-                        </form>
-                    </td>
-                    <td>{{ DF(company['es']) }}</td>
-                    <td>{{ CH(company['check_es']) }}</td>
-                    <td>{{ DF(company['test']) }}</td>
-                    <td>{{ TT(company['test_type']) }}</td>
-                    <td>{{ CH(company['check_test']) }}</td>
-                    <template v-for="i in num">
-                        <td>{{ DF(company['interview_' + i]) }}</td>
-                        <td>{{ CH(company['check_' + i]) }}</td>
-                    </template>
-                    <td>{{ company['result'] }}</td>
+                    <tr>
+                        <td>{{ company['name'] }}</td>
+                        <td>
+                            <form action="" method="post">
+                                <input type="hidden" name="id" :value="company['id']">
+                                <input type="hidden" name="display" :value="display">
+                                <input type="hidden" name="favorite" value="0"><!-- チェックが外されたときにお気に入りを外すSQLを実行する -->
+                                <input type="checkbox" name="favorite" value="1" :checked="company['favorite'] == 1" onchange="this.form.submit()">
+                            </form>
+                        </td>
+                        <td>{{ DF(company['es']) }}</td>
+                        <td>{{ CH(company['check_es']) }}</td>
+                        <td>{{ DF(company['test']) }}</td>
+                        <td>{{ TT(company['test_type']) }}</td>
+                        <td>{{ CH(company['check_test']) }}</td>
+                        <template v-for="i in num">
+                            <td>{{ DF(company['interview_' + i]) }}</td>
+                            <td>{{ CH(company['check_' + i]) }}</td>
+                        </template>
+                        <td>{{ company['result'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>マイページURL</td>
+                        <td colspan="6">
+                            <a :href="company['url']">{{ company['url'] }}</a>
+                        </td>
+                        <td colspan="2">ログインID</td>
+                        <td colspan="2">{{ company['login'] }}</td>
+                    </tr>
                 </template>
-            </tr>
+            </template>
         </table>
     </div>
 
     <script>
         const app = new Vue({
+            el: '#app',
             data: {
                 // PHP変数 $companies をJSON形式に変換
                 companies: <?php echo json_encode($companies); ?>,
@@ -114,6 +134,8 @@ if(isset($_POST['display'])) {
                 newNum: <?php echo $newnum; ?>,
                 // selectタグの初期値を設定
                 display: <?php echo json_encode($display); ?>,
+                // num次面接に値が入力されているか
+                containInterview: false,
             },
             methods: {
                 // DateFormat
@@ -145,8 +167,33 @@ if(isset($_POST['display'])) {
                     else if (type == 6) return 'その他';
                     else return '';
                 },
-            }
-        }).$mount('#app');
+                // カラム削除ボタンが押されたときに本当に削除してよいか確認
+                handleSubmit(event) {
+                    if (this.num == 1){
+                        alert('これ以上は欄を減らせません')
+                        // フォームの送信をキャンセル
+                        event.preventDefault();
+                    }else if (this.containInterview){
+                        // 入力されている項目がある場合に確認する
+                        if (!window.confirm(this.num + '次面接に入力されている事項がありますが\n本当に削除しますか？')){
+                            // フォームの送信をキャンセル
+                            event.preventDefault();
+                        }     
+                    }
+                },
+            },
+            mounted() {
+                // 画面読み込み時にnum次面接に入力事項がある場合containInterviewをtrueにする
+                window.onload = () => {
+                    Object.values(this.companies).forEach((company) => {
+                        if (company['interview_' + this.num]){
+                            this.containInterview = true
+                        }
+                    })
+                }
+            },
+            
+        });
     </script>
 </body>
 
