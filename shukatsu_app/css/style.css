@@ -1,3 +1,6 @@
+.logout-container {
+    text-align: right;
+}
 table {
     width: 100%;
     border-collapse: collapse;
@@ -10,36 +13,6 @@ th, td {
 }
 th {
     background-color: #f2f2f2;
-}
-.buttons button {
-    margin: 3px;
-}
-form {
-    display: inline;
-}
-.stage_1 {
-    background-color: #eee;
-}
-.stage_2 {
-    background-color: #ddd;
-}
-.stage_3 {
-    background-color: #ccc;
-}
-.stage_4 {
-    background-color: #bbb;
-}
-.stage_5 {
-    background-color: #aaa;
-}
-.stage_6 {
-    background-color: #999;
-}
-.company_1 {
-    background-color: #0ff;
-}
-.company_2 {
-    background-color: #999;
 }
 .company_name{
     width: 100%;
@@ -67,4 +40,22 @@ form {
 .dropcolumn{
     position: absolute;
     margin-left: -30px;
+}
+.stage_1 {
+    background-color: #eee;
+}
+.stage_2 {
+    background-color: #ddd;
+}
+.stage_3 {
+    background-color: #ccc;
+}
+.stage_4 {
+    background-color: #bbb;
+}
+.company_1 {
+    background-color: #0ff;
+}
+.company_2 {
+    background-color: #999;
 }
