@@ -11,10 +11,16 @@ th, td {
     padding: 8px;
     text-align: center;
 }
-th {
+.table th {
     background-color: #f2f2f2;
+    /* 縦スクロール時に固定する */
+    position: sticky;
+    top: 0;
+    /* tbody内のセルより手前に表示する */
+    z-index: 1;
 }
 .company_name{
+    font-size: large;
     width: 100%;
     border: none;
     background: transparent;
@@ -24,9 +30,12 @@ th {
     transform: scale(1.1, 1.1);
 }
 .last{
-    position   : relative;
+    position: relative;
 }
 .last:hover .columnbuttons{
+    display: inline;
+}
+th form {
     display: inline;
 }
 .columnbuttons{
