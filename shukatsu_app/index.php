@@ -74,6 +74,7 @@ if(isset($_POST['display'])) {
                 <tr>
                     <th>会社名</th>
                     <th>☆</th>
+                    <th>ログインID</th>
                     <th colspan="2">ES</th>
                     <th colspan="3">テスト</th>
                     <template v-for="i in num-1">
@@ -99,11 +100,7 @@ if(isset($_POST['display'])) {
                     display == 'get' && company['result'] == 1 "
                     >
                         <tr :class="trClass(company['result'])">
-                            <td rowspan="2">
-                                <form action="detail.php" method="post">
-                                    <button class="company_name" type="submit" name="id" :value="company['id']">{{ company['name'] }}</button>
-                                </form>
-                            </td>
+                            <td><a :href="company['url']">{{ company['name'] }}</a></td>
                             <td>
                                 <form action="" method="post">
                                     <input type="hidden" name="id" :value="company['id']">
@@ -112,20 +109,16 @@ if(isset($_POST['display'])) {
                                     <input type="checkbox" name="favorite" value="1" :checked="company['favorite'] == 1" onchange="this.form.submit()">
                                 </form>
                             </td>
-                            <td :class="[tdClass(company['check_es']), trClass(company['result'])]">{{ DF(company['es']) }}</td>
-                            <td :class="[tdClass(company['check_es']), trClass(company['result'])]">{{ CH(company['check_es']) }}</td>
-                            <td :class="[tdClass(company['check_test']), trClass(company['result'])]">{{ DF(company['test']) }}</td>
-                            <td :class="[tdClass(company['check_test']), trClass(company['result'])]">{{ TT(company['test_type']) }}</td>
-                            <td :class="[tdClass(company['check_test']), trClass(company['result'])]">{{ CH(company['check_test']) }}</td>
+                            <td @click="goToDetail(company['id'])">{{ company['login'] }}</td>
+                            <td :class="[tdClass(company['check_es']), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ DF(company['es']) }}</td>
+                            <td :class="[tdClass(company['check_es']), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ CH(company['check_es']) }}</td>
+                            <td :class="[tdClass(company['check_test']), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ DF(company['test']) }}</td>
+                            <td :class="[tdClass(company['check_test']), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ TT(company['test_type']) }}</td>
+                            <td :class="[tdClass(company['check_test']), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ CH(company['check_test']) }}</td>
                             <template v-for="i in num">
-                                <td :class="[tdClass(company['check_' + i]), trClass(company['result'])]">{{ DF(company['interview_' + i]) }}</td>
-                                <td :class="[tdClass(company['check_' + i]), trClass(company['result'])]">{{ CH(company['check_' + i]) }}</td>
+                                <td :class="[tdClass(company['check_' + i]), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ DF(company['interview_' + i]) }}</td>
+                                <td :class="[tdClass(company['check_' + i]), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ CH(company['check_' + i]) }}</td>
                             </template>
-                        </tr>
-                        <tr :class="trClass(company['result'])" style="font-size:70%">
-                            <td colspan="6"><a :href="company['url']">{{ company['url'] }}</a></td>
-                            <td colspan="2">ログインID</td>
-                            <td colspan="2">{{ company['login'] }}</td>
                         </tr>
                     </template>
                 </template>
@@ -210,7 +203,23 @@ if(isset($_POST['display'])) {
                     }else if (result == 4) {
                         return 'stage_4';
                     }
-                }  
+                },
+                // clickイベントでdetail.phpへ画面遷移
+                goToDetail(id) {
+                    // フォームを生成
+                    const form = document.createElement('form');
+                    form.action = 'detail.php';
+                    form.method = 'POST';
+                    // idのhiddenフィールドを追加
+                    const idInput = document.createElement('input');
+                    idInput.type = 'hidden';
+                    idInput.name = 'id';
+                    idInput.value = id;
+                    form.appendChild(idInput);
+                    // フォームをbodyに追加して送信
+                    document.body.appendChild(form);
+                    form.submit();
+                },
             },
             mounted() {
                 // 画面読み込み時にnum次面接に入力事項がある場合containInterviewをtrueにする
