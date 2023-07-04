@@ -69,59 +69,63 @@ if(isset($_POST['display'])) {
             <option value="all">すべてを表示</option>
             <option value="get">内定のみ表示</option>
         </select>
-        <div class="table">
+        <div class="table-wrapper">
             <table>
-                <tr>
-                    <th>会社名</th>
-                    <th>☆</th>
-                    <th>ログインID</th>
-                    <th colspan="2">ES</th>
-                    <th colspan="3">テスト</th>
-                    <template v-for="i in num-1">
-                        <th colspan="2">{{ i }}次面接</th>
+                <thead>
+                    <tr>
+                        <th width="50">会社名</th>
+                        <th width="10">☆</th>
+                        <th width="10">ログインID</th>
+                        <th class="es" colspan="2">ES</th>
+                        <th class="test"colspan="3">テスト</th>
+                        <template v-for="i in num-1">
+                            <th class="interview" colspan="2">{{ i }}次面接</th>
+                        </template>
+                        <!-- 最後のカラムのみ追加と削除のボタンを表示する -->
+                        <th colspan="2" class="interview last">
+                            <form action="dropcolumn.php" method="post" v-on:submit="handleSubmit">
+                                <button type="submit" name="dropcolumn" class="columnbuttons dropcolumn">削<br>除</button>
+                            </form>
+                            {{ num }}次面接
+                            <form action="addcolumn.php" method="post">
+                                <button type="submit" name="addcolumn" class="columnbuttons addcolumn">追<br>加</button>
+                            </form>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template v-for="company in companies" :key="company['id']">
+                        <!-- displayの状態によって条件を変更 -->
+                        <template v-if=" 
+                        display == 'ongoing' && company['result'] == 0 || 
+                        display == 'favorite' && company['favorite'] == 1 || 
+                        display == 'all' || 
+                        display == 'get' && company['result'] == 1 "
+                        >
+                            <tr class="company" :class="trClass(company['result'])">
+                                <td><a :href="company['url']">{{ company['name'] }}</a></td>
+                                <td>
+                                    <form action="" method="post">
+                                        <input type="hidden" name="id" :value="company['id']">
+                                        <input type="hidden" name="display" :value="display">
+                                        <input type="hidden" name="favorite" value="0"><!-- チェックが外されたときにお気に入りを外すSQLを実行する -->
+                                        <input type="checkbox" name="favorite" value="1" :checked="company['favorite'] == 1" onchange="this.form.submit()">
+                                    </form>
+                                </td>
+                                <td @click="goToDetail(company['id'])">{{ company['login'] }}</td>
+                                <td :class="[tdClass(company['check_es']), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ DF(company['es']) }}</td>
+                                <td :class="[tdClass(company['check_es']), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ CH(company['check_es']) }}</td>
+                                <td :class="[tdClass(company['check_test']), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ DF(company['test']) }}</td>
+                                <td :class="[tdClass(company['check_test']), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ TT(company['test_type']) }}</td>
+                                <td :class="[tdClass(company['check_test']), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ CH(company['check_test']) }}</td>
+                                <template v-for="i in num">
+                                    <td :class="[tdClass(company['check_' + i]), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ DF(company['interview_' + i]) }}</td>
+                                    <td :class="[tdClass(company['check_' + i]), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ CH(company['check_' + i]) }}</td>
+                                </template>
+                            </tr>
+                        </template>
                     </template>
-                    <!-- 最後のカラムのみ追加と削除のボタンを表示する -->
-                    <th colspan="2" class="last">
-                        <form action="dropcolumn.php" method="post" v-on:submit="handleSubmit">
-                            <button type="submit" name="dropcolumn" class="columnbuttons dropcolumn">削<br>除</button>
-                        </form>
-                        {{ num }}次面接
-                        <form action="addcolumn.php" method="post">
-                            <button type="submit" name="addcolumn" class="columnbuttons addcolumn">追<br>加</button>
-                        </form>
-                    </th>
-                </tr> 
-                <template v-for="company in companies" :key="company['id']">
-                    <!-- displayの状態によって条件を変更 -->
-                    <template v-if=" 
-                    display == 'ongoing' && company['result'] == 0 || 
-                    display == 'favorite' && company['favorite'] == 1 || 
-                    display == 'all' || 
-                    display == 'get' && company['result'] == 1 "
-                    >
-                        <tr :class="trClass(company['result'])">
-                            <td><a :href="company['url']">{{ company['name'] }}</a></td>
-                            <td>
-                                <form action="" method="post">
-                                    <input type="hidden" name="id" :value="company['id']">
-                                    <input type="hidden" name="display" :value="display">
-                                    <input type="hidden" name="favorite" value="0"><!-- チェックが外されたときにお気に入りを外すSQLを実行する -->
-                                    <input type="checkbox" name="favorite" value="1" :checked="company['favorite'] == 1" onchange="this.form.submit()">
-                                </form>
-                            </td>
-                            <td @click="goToDetail(company['id'])">{{ company['login'] }}</td>
-                            <td :class="[tdClass(company['check_es']), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ DF(company['es']) }}</td>
-                            <td :class="[tdClass(company['check_es']), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ CH(company['check_es']) }}</td>
-                            <td :class="[tdClass(company['check_test']), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ DF(company['test']) }}</td>
-                            <td :class="[tdClass(company['check_test']), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ TT(company['test_type']) }}</td>
-                            <td :class="[tdClass(company['check_test']), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ CH(company['check_test']) }}</td>
-                            <template v-for="i in num">
-                                <td :class="[tdClass(company['check_' + i]), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ DF(company['interview_' + i]) }}</td>
-                                <td :class="[tdClass(company['check_' + i]), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ CH(company['check_' + i]) }}</td>
-                            </template>
-                        </tr>
-                    </template>
-                </template>
+                </tbody>
             </table>
         </div>
     </div>

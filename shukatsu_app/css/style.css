@@ -1,33 +1,27 @@
 .logout-container {
     text-align: right;
 }
+.table-wrapper {
+    overflow-x: scroll;
+}
 table {
-    width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
+}
+tbody tr {
+    border: 3px solid #525252;
 }
 th, td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
+    white-space: nowrap;
 }
-.table th {
+.table-wrapper th {
     background-color: #f2f2f2;
-    /* 縦スクロール時に固定する */
+    /* overflowと共存どうやるねんこれ
     position: sticky;
     top: 0;
-    /* tbody内のセルより手前に表示する */
-    z-index: 1;
-}
-.company_name{
-    font-size: large;
-    width: 100%;
-    border: none;
-    background: transparent;
-}
-.company_name:hover{
-    opacity: 0.6;
-    transform: scale(1.1, 1.1);
+    z-index: 2; */
 }
 .last{
     position: relative;
