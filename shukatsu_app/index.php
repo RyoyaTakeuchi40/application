@@ -23,16 +23,35 @@ if(isset($_POST['favorite'])) {
     }
 }
 
-$result = $db->query("SELECT * FROM `$user_name` ORDER BY `es` ASC");
+// queryの作成
+// typeがdateの内容をすべて参照し、日付順で並べる
+$query = "SELECT * FROM ( 
+    SELECT *, es AS interview_dates FROM shukatsu_app
+    UNION ALL SELECT *, test AS interview_dates FROM shukatsu_app ";
+for ($i=1;$i<=$num;$i++){
+    $query .= "UNION ALL SELECT *, interview_" . $i . " AS interview_dates FROM shukatsu_app ";
+}
+$query .= ") AS subquery ORDER BY interview_dates ASC";
+
+$result = $db->query($query);
 
 if (!$result) {
     echo "表示する内容がありません";
     echo $db->error;
 }else{
     // 取得したデータを会社ごとの配列に格納
+    // 重複の削除も同時に行う
     $companies = array();
+    $uniqueCompanies = array(); // 一時的な配列
     while ($row = mysqli_fetch_assoc($result)) {
-        $companies[] = $row;
+        $uniqueKey = $row['id']; // 重複チェックとしてidを指定する
+        if (!isset($uniqueCompanies[$uniqueKey])) {
+            $uniqueCompanies[$uniqueKey] = $row;
+        }
+    }
+    // 一時的な配列の値を $companies にコピーする
+    foreach ($uniqueCompanies as $company) {
+        $companies[] = $company;
     }
 }
 

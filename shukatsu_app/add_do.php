@@ -81,8 +81,6 @@ if(isset($_POST['button'])) {
     }
     $query .= "'0', " . $url . ", " . $login . ")";
 
-    var_dump($query . "<br>" . "<br>");
-
     $result = $db->query($query);
     if ($result) {
         echo '成功！！';
