@@ -6,26 +6,26 @@ if(isset($_POST['button'])) {
     $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
     //そのまま代入するとうまく動作しないから
     if(empty($name)){
-        $name = "NULL";
+        $name = null;
     }else{
         $name = "'" . $name . "'";
     }
     $es = new DateTime(filter_input(INPUT_POST, 'es', FILTER_SANITIZE_STRING));
     if(empty($es)){
-        $es = "NULL";
+        $es = null;
     }else{
         $es = $es -> format('Y-m-d');
         $es = "'" . $es . "'";
     }
     $memo_es = filter_input(INPUT_POST, 'memo_es', FILTER_SANITIZE_STRING);
     if(empty($memo_es)){
-        $memo_es = "NULL";
+        $memo_es = null;
     }else{
         $memo_es = "'" . $memo_es . "'";
     }
     $test = new DateTime(filter_input(INPUT_POST, 'test', FILTER_SANITIZE_STRING));
     if(empty($test)){
-        $test = "NULL";
+        $test = null;
     }else{
         $test = $test -> format('Y-m-d');
         $test = "'" . $test . "'";
@@ -43,14 +43,14 @@ if(isset($_POST['button'])) {
         
         ${'int_'.$i} = new DateTime(filter_input(INPUT_POST, $ints, FILTER_SANITIZE_STRING));
         if(empty(${'int_'.$i})){
-            ${'int_'.$i} = "NULL";
+            ${'int_'.$i} = null;
         }else{
             ${'int_'.$i} = ${'int_'.$i} -> format('Y-m-d');
             ${'int_'.$i} = "'" . ${'int_'.$i} . "'";
         }
         ${'memo_'.$i} = filter_input(INPUT_POST, $memos, FILTER_SANITIZE_STRING);
         if(empty(${'memo_'.$i})){
-            ${'memo_'.$i} = "NULL";
+            ${'memo_'.$i} = null;
         }else{
             ${'memo_'.$i} = ${'memo_'.$i} -> format('Y-m-d');
             ${'memo_'.$i} = "'" . ${'memo_'.$i} . "'";
@@ -58,13 +58,13 @@ if(isset($_POST['button'])) {
     }
     $url = filter_input(INPUT_POST, 'url', FILTER_SANITIZE_STRING);
     if(empty($url)){
-        $url = "NULL";
+        $url = null;
     }else{
         $url = "'" . $url . "'";
     }
     $login = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_STRING);
     if(empty($login)){
-        $login = "NULL";
+        $login = null;
     }else{
         $login = "'" . $login . "'";
     }
