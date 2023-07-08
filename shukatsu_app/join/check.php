@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 	$stmt -> bind_param('sss', $name,  $email,  $password);
 	if ($stmt->execute()) {
 		//tableの作成
-		$result = $db->query("CREATE TABLE `job_application`.`$name` (
+		$result = $db->query("CREATE TABLE `take40_shukatsu`.`$name` (
 			`id` INT(11) NOT NULL AUTO_INCREMENT , 
 			`name` TEXT NOT NULL , 
 			`favorite` INT(11) NOT NULL DEFAULT '0' , 

@@ -1,7 +1,6 @@
 <?php
 require("../common/db.php");
 
-session_start();
 
 if (isset($_GET['action']) && $_GET['action'] === 'rewrite' && isset($_SESSION['form'])){
     $form = $_SESSION['form'];
@@ -34,10 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         if ($cnt_name > 0){
             $error['name'] = 'duplicate';
         }
-
     }
 
-    $form['email'] = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+    $form['email'] = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
     if ($form['email'] === ''){
         $error['email'] = 'blank';
     }else{
@@ -68,11 +66,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     if ($form['confirm'] !== $form['password']){
         $error['confirm'] = 'match';
     }
+
     if (empty($error)){
         $_SESSION['form'] = $form;
-        echo $_SESSION;
-        // header('Location: check.php');
-        // exit();
+        header('Location: check.php');
+        exit();
     }
 }
 ?>

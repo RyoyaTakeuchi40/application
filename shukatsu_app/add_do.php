@@ -3,71 +3,58 @@ require("common/db.php");
 require("common/cntcolumn.php");
 
 if(isset($_POST['button'])) {
-    $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
-    //そのまま代入するとうまく動作しないから
-    if(empty($name)){
-        $name = null;
-    }else{
-        $name = "'" . $name . "'";
+    // そのまま代入するとうまく動作しないから
+    // queryに合わせるためのfunction*3
+    function changeStr($value){
+        if(empty($value)){
+            $value = "NULL";
+        }else{
+            $value = "'" . $value . "'";
+        }
+        return $value;
     }
-    $es = new DateTime(filter_input(INPUT_POST, 'es', FILTER_SANITIZE_STRING));
-    if(empty($es)){
-        $es = null;
-    }else{
-        $es = $es -> format('Y-m-d');
-        $es = "'" . $es . "'";
+
+    function changeInt($value){
+        if(empty($value)){
+            $value = "0";
+        }else{
+            $value = "'" . $value . "'";
+        }
+        return $value;
     }
-    $memo_es = filter_input(INPUT_POST, 'memo_es', FILTER_SANITIZE_STRING);
-    if(empty($memo_es)){
-        $memo_es = null;
-    }else{
-        $memo_es = "'" . $memo_es . "'";
+
+    // 今日の日付を取得
+    $now = new DateTime();
+    $now = $now -> format('Y-m-d');
+    // 一致の判断をするために合わせる
+    $now = "'" . $now . "'";
+    
+    function changeDate($value){
+        $value = new DateTime($value); 
+        $value = $value -> format('Y-m-d');
+        $value = "'" . $value . "'";
+        // 今日の日付と同じ場合に空欄になるようにする
+        if($value == $GLOBALS['now']){
+            $value = "NULL";
+        }
+        return $value;
     }
-    $test = new DateTime(filter_input(INPUT_POST, 'test', FILTER_SANITIZE_STRING));
-    if(empty($test)){
-        $test = null;
-    }else{
-        $test = $test -> format('Y-m-d');
-        $test = "'" . $test . "'";
-    }
-    $test_type = filter_input(INPUT_POST, 'test_type', FILTER_SANITIZE_NUMBER_INT);
-    if(empty($test_type)){
-        $test_type = "0";
-    }else{
-        $test_type = "'" . $test_type . "'";
-    }
+
+    // 値の取得
+    $name = changeStr(filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING));
+    $es = changeDate(filter_input(INPUT_POST, 'es', FILTER_SANITIZE_STRING));
+    $memo_es = changeStr(filter_input(INPUT_POST, 'memo_es', FILTER_SANITIZE_STRING));
+    $test = changeDate(filter_input(INPUT_POST, 'test', FILTER_SANITIZE_STRING));
+    $test_type = changeInt(filter_input(INPUT_POST, 'test_type', FILTER_SANITIZE_NUMBER_INT));
     for ($i=1;$i<=$num;$i++){
         //nameから取得するための変数を作成
         $ints = 'int_'.(string)$i;
         $memos = 'memo_'.(string)$i;
-        
-        ${'int_'.$i} = new DateTime(filter_input(INPUT_POST, $ints, FILTER_SANITIZE_STRING));
-        if(empty(${'int_'.$i})){
-            ${'int_'.$i} = null;
-        }else{
-            ${'int_'.$i} = ${'int_'.$i} -> format('Y-m-d');
-            ${'int_'.$i} = "'" . ${'int_'.$i} . "'";
-        }
-        ${'memo_'.$i} = filter_input(INPUT_POST, $memos, FILTER_SANITIZE_STRING);
-        if(empty(${'memo_'.$i})){
-            ${'memo_'.$i} = null;
-        }else{
-            ${'memo_'.$i} = ${'memo_'.$i} -> format('Y-m-d');
-            ${'memo_'.$i} = "'" . ${'memo_'.$i} . "'";
-        }
+        ${'int_'.$i} = changeDate(filter_input(INPUT_POST, $ints, FILTER_SANITIZE_STRING));
+        ${'memo_'.$i} = changeStr(filter_input(INPUT_POST, $memos, FILTER_SANITIZE_STRING));
     }
-    $url = filter_input(INPUT_POST, 'url', FILTER_SANITIZE_STRING);
-    if(empty($url)){
-        $url = null;
-    }else{
-        $url = "'" . $url . "'";
-    }
-    $login = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_STRING);
-    if(empty($login)){
-        $login = null;
-    }else{
-        $login = "'" . $login . "'";
-    }
+    $url = changeStr(filter_input(INPUT_POST, 'url', FILTER_SANITIZE_STRING));
+    $login = changeStr(filter_input(INPUT_POST, 'login', FILTER_SANITIZE_STRING));
 
     // queryの作成
     $query = "INSERT INTO `$user_name` (`id`, `name`, `favorite`, `es`, `check_es`, `memo_es`, `test`, `test_type`, `check_test`, ";
@@ -75,7 +62,6 @@ if(isset($_POST['button'])) {
         $query .= "`interview_" . $i . "`, `check_" . $i . "`, `memo_" . $i . "`, ";
     }
     $query .= "`result`, `url`, `login`) VALUES (NULL, " . $name . ", '0', " . $es . ", '0', " . $memo_es . ", " . $test . ", " . $test_type . ", '0', ";
-
     for ($i=1;$i<=$num;$i++){
         $query .= ${'int_'.$i} . ",  '0', " . ${'memo_'.$i} . ",  ";
     }

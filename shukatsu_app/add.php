@@ -45,12 +45,12 @@ if (isset($_POST['add'])){
         </div>
         <h3>ES</h3>
         <div class="fromdb">
-            <input type="date" name="es" value="<?php echo $es; ?>">
+            <input type="date" name="es">
             <textarea name="memo_es" cols="30" rows="5"></textarea>
         </div>
         <h3>テスト</h3>
         <div class="fromdb">
-            <input type="date" name="test" value="<?php echo $test; ?>">
+            <input type="date" name="test">
             <select name="test_type" id="test_type">
                 <option value="0">なし</option>
                 <option value="1">SPI3</option>
