@@ -25,11 +25,9 @@ if(isset($_POST['favorite'])) {
 
 // queryの作成
 // typeがdateの内容をすべて参照し、日付順で並べる
-$query = "SELECT * FROM ( 
-    SELECT *, es AS interview_dates FROM shukatsu_app
-    UNION ALL SELECT *, test AS interview_dates FROM shukatsu_app ";
+$query = "SELECT * FROM (SELECT *, es AS interview_dates FROM `$user_name` UNION ALL SELECT *, test AS interview_dates FROM `$user_name` ";
 for ($i=1;$i<=$num;$i++){
-    $query .= "UNION ALL SELECT *, interview_" . $i . " AS interview_dates FROM shukatsu_app ";
+    $query .= "UNION ALL SELECT *, interview_" . $i . " AS interview_dates FROM `$user_name` ";
 }
 $query .= ") AS subquery ORDER BY interview_dates ASC";
 
@@ -92,8 +90,8 @@ if(isset($_POST['display'])) {
             <table>
                 <thead>
                     <tr>
-                        <th width="50">会社名</th>
                         <th width="10">☆</th>
+                        <th width="50">会社名</th>
                         <th width="10">ログインID</th>
                         <th class="es" colspan="2">ES</th>
                         <th class="test"colspan="3">テスト</th>
@@ -122,7 +120,6 @@ if(isset($_POST['display'])) {
                         display == 'get' && company['result'] == 1 "
                         >
                             <tr class="company" :class="trClass(company['result'])">
-                                <td><a :href="company['url']">{{ company['name'] }}</a></td>
                                 <td>
                                     <form action="" method="post">
                                         <input type="hidden" name="id" :value="company['id']">
@@ -131,7 +128,8 @@ if(isset($_POST['display'])) {
                                         <input type="checkbox" name="favorite" value="1" :checked="company['favorite'] == 1" onchange="this.form.submit()">
                                     </form>
                                 </td>
-                                <td @click="goToDetail(company['id'])">{{ company['login'] }}</td>
+                                <td><a :href="company['url']">{{ company['name'] }}</a></td>
+                                <td>{{ company['login'] }}</td>
                                 <td :class="[tdClass(company['check_es']), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ DF(company['es']) }}</td>
                                 <td :class="[tdClass(company['check_es']), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ CH(company['check_es']) }}</td>
                                 <td :class="[tdClass(company['check_test']), trClass(company['result'])]" @click="goToDetail(company['id'])">{{ DF(company['test']) }}</td>

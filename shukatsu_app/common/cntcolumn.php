@@ -6,7 +6,6 @@ if (isset($_SESSION['id']) && isset($_SESSION['name'])){
     $user_name = $_SESSION['name'];
 }
 
-
 $forcnt = $db->query("SELECT * FROM `$user_name`");
 //columnの数を数える
 $cnt =  $forcnt->field_count;

@@ -14,29 +14,46 @@ if (!$postid = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING)){
 $stmt = $db -> prepare("SELECT * FROM `$user_name` WHERE id=?");
 $stmt -> bind_param("i", $postid);
 $stmt -> execute();
-//要素を配列で取得
-$result = $stmt->get_result();
-$row = $result->fetch_array(MYSQLI_NUM);
-//各要素を変数に格納
-$id = $row[0];
-$name = $row[1];
-$favorite = $row[2];
-$es = $row[3];
-$check_es = $row[4];
-$memo_es = $row[5];
-$test = $row[6];
-$test_type = $row[7];
-$check_test = $row[8];
-//DBの面接の回数繰り返す繰り返す
-for ($i=1;$i<=$num;$i++){
-    //変数名を$int_1,$int_2,$int_3...と増やす
-    ${'int_'.$i} = $row[$i*3+6];
-    ${'check_'.$i} = $row[$i*3+7];
-    ${'memo_'.$i} = $row[$i*3+8];
+$stmt->store_result();
+
+// カラム数を取得
+$num_of_fields = $stmt->field_count;
+
+// カラム名の配列を初期化
+$columns = array();
+
+// カラムメタデータを取得
+$meta = $stmt->result_metadata();
+while ($field = $meta->fetch_field()) {
+    $columns[] = &$row[$field->name];
 }
-$result = $row[$num*3+9];
-$url = $row[$num*3+10];
-$login = $row[$num*3+11];
+
+// バインドされた変数に結果を格納
+call_user_func_array(array($stmt, 'bind_result'), $columns);
+
+// レコードを取得
+$stmt->fetch();
+
+//各要素を変数に格納
+$id = $columns[0];
+$name = $columns[1];
+$favorite = $columns[2];
+$es = $columns[3];
+$check_es = $columns[4];
+$memo_es = $columns[5];
+$test = $columns[6];
+$test_type = $columns[7];
+$check_test = $columns[8];
+// DBの面接の回数繰り返す繰り返す
+for ($i=1;$i<=$num;$i++){
+    // 変数名を$int_1,$int_2,$int_3...と増やす
+    ${'int_'.$i} = $columns[$i*3+6];
+    ${'check_'.$i} = $columns[$i*3+7];
+    ${'memo_'.$i} = $columns[$i*3+8];
+}
+$result = $columns[($num*3)+9];
+$url = $columns[($num*3)+10];
+$login = $columns[($num*3)+11];
 ?>
 
 <!DOCTYPE html>

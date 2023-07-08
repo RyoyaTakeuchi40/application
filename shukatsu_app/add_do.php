@@ -83,7 +83,6 @@ if(isset($_POST['button'])) {
 
     $result = $db->query($query);
     if ($result) {
-        echo '成功！！';
         header('Location: index.php');
         exit();
     } else {

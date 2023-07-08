@@ -70,8 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
     if (empty($error)){
         $_SESSION['form'] = $form;
-        header('Location: check.php');
-        exit();
+        echo $_SESSION;
+        // header('Location: check.php');
+        // exit();
     }
 }
 ?>
